@@ -12,7 +12,6 @@ function useUpdateProduct() {
       products: data,
     });
     setLoading(false);
-    console.log(data);
   };
 
   return {

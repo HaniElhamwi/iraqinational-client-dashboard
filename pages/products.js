@@ -8,32 +8,50 @@ import {
   Paper,
   Button,
   Box,
-  TextField,
   Typography,
-  IconButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import AddProductDialog from "../components/add-products-dialog";
 import useUpdateProduct from "../hooks/products/update";
 import { db } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
-import EditProductsDialog from "../components/add-products-dialog";
 import Product from "../components/product";
+import useUploadImage from "../hooks/useUploadImage";
 
 const Page = () => {
   const [products, setProducts] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
 
   const { updateProduct } = useUpdateProduct();
+  const { uploadFile } = useUploadImage();
 
-  const addProductsToDataBase = async (product) => {
-    console.log("its saving  to data bvase");
-    await updateProduct([...products, product]);
-    setProducts([...products, product]);
-    setOpenDialog(false);
+  const addProductsToDataBase = async (product, status) => {
+    if (status === "add") {
+      const dataUrl = await uploadFile({ file: product.image });
+
+      await updateProduct([...products, { ...product, image: dataUrl.image }]);
+      setProducts([...products, { ...product, image: dataUrl.image }]);
+      setOpenDialog(false);
+    } else if (status === "edit") {
+      let dataUrl;
+      if (product.image.name) {
+        dataUrl = await uploadFile({ file: product.image });
+      }
+      const newProducts = products.map((item) => {
+        if (item.id === product.id) {
+          return { ...product, image: dataUrl ? dataUrl.image : item.image };
+        } else {
+          return item;
+        }
+      });
+      await updateProduct(newProducts);
+      setProducts(newProducts);
+    } else {
+      const newProducts = products.filter((item) => item.id !== product.id);
+      await updateProduct(newProducts);
+      setProducts(newProducts);
+    }
   };
 
   useEffect(() => {
@@ -41,8 +59,6 @@ const Page = () => {
       const docRef = doc(db, "products", "products");
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        console.log(docSnap.data().products);
         if (docSnap.data().products) {
           setProducts(docSnap.data().products);
         }
@@ -93,8 +109,13 @@ const Page = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product, index) => (
-              <Product setProducts={setProducts} product={product} />
+            {products.map((product) => (
+              <Product
+                setProducts={setProducts}
+                product={product}
+                key={product.id}
+                addProductsToDataBase={addProductsToDataBase}
+              />
             ))}
           </TableBody>
         </Table>

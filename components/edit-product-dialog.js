@@ -20,12 +20,13 @@ function EditProductsDialog(props) {
     validity: productData.validity,
     deliveryTerms: productData.deliveryTerms,
     image: productData.image,
+    id: productData.id,
   });
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(productData?.image || "");
 
   function handleFileChange(event) {
     const file = event.target.files[0];
-
+    setProduct({ ...product, image: event.target.files[0] });
     if (file) {
       const reader = new FileReader();
 
@@ -53,7 +54,7 @@ function EditProductsDialog(props) {
         </Box>
         <DialogContent>
           <Box>
-            <Typography variant="h5" textAlign="center" sx={{ mb: 1 }}>
+            <Typography variant="h5" sx={{ mb: 1 }}>
               Edit Product
             </Typography>
           </Box>
@@ -127,13 +128,16 @@ function EditProductsDialog(props) {
               </Box>
             </Box>
           </Box>
-          <Box textAlign="center">
+          <Box sx={{ textAlign: "center" }}>
             <Button
               variant="contained"
-              onClick={() => addProductsToDataBase(product)}
-              textAlign="center"
+              onClick={async () => {
+                await addProductsToDataBase(product, "edit");
+                setOpenDialog(false);
+              }}
               sx={{
                 backgroundColor: "rgb(249 115 22) !important",
+                textAlign: "center",
                 mt: 1,
               }}>
               UPDATE

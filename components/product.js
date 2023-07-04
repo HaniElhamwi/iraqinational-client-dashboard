@@ -6,20 +6,23 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import EditProductsDialog from "./add-products-dialog";
+import EditProductsDialog from "./edit-product-dialog";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-function Product({ setProducts, product }) {
+function Product({ setProducts, product, addProductsToDataBase }) {
   const [openEditDialog, setOpenEditDialog] = useState(false);
   return (
     <TableRow>
-      <EditProductsDialog
-        openDialog={openEditDialog}
-        setOpenDialog={setOpenEditDialog}
-        setProducts={setProducts}
-        productData={product}
-      />
+      {openEditDialog && (
+        <EditProductsDialog
+          openDialog={openEditDialog}
+          setOpenDialog={setOpenEditDialog}
+          setProducts={setProducts}
+          productData={product}
+          addProductsToDataBase={addProductsToDataBase}
+        />
+      )}
       <TableCell>
         <Typography>{product.type}</Typography>
       </TableCell>
@@ -33,18 +36,18 @@ function Product({ setProducts, product }) {
         <Typography>{product.validity}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{product.image}</Typography>
+        <img
+          src={product.image}
+          style={{ width: 150, height: 100, objectFit: "cover" }}
+        />
       </TableCell>
       <TableCell>
         <Box sx={{ display: "flex" }}>
-          <IconButton>
+          <IconButton onClick={() => addProductsToDataBase(product, "delete")}>
             <DeleteIcon sx={{ color: "red !important" }} />
           </IconButton>
-          <IconButton>
-            <EditIcon
-              sx={{ color: "rgb(249 115 22) !important" }}
-              onClick={() => setOpenEditDialog(true)}
-            />
+          <IconButton onClick={() => setOpenEditDialog(true)}>
+            <EditIcon sx={{ color: "rgb(249 115 22) !important" }} />
           </IconButton>
         </Box>
       </TableCell>
