@@ -33,6 +33,9 @@ function Product({ setProducts, product, addProductsToDataBase }) {
         <Typography>{product.packaging}</Typography>
       </TableCell>
       <TableCell>
+        <Typography>{product.deliveryTerms}</Typography>
+      </TableCell>
+      <TableCell>
         <Typography>{product.validity}</Typography>
       </TableCell>
       <TableCell>

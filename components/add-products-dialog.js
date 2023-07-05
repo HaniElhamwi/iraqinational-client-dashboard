@@ -4,6 +4,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogContent,
   IconButton,
@@ -24,6 +25,7 @@ function EditProductsDialog(props) {
     id: generateRandomId(),
   });
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function handleFileChange(event) {
     const file = event.target.files[0];
@@ -47,7 +49,8 @@ function EditProductsDialog(props) {
               display: "flex",
               justifyContent: "flex-end",
               cursor: "pointer",
-            }}>
+            }}
+          >
             <ClearIcon sx={{ color: "#666" }} />
           </IconButton>
         </Box>
@@ -131,7 +134,8 @@ function EditProductsDialog(props) {
             <Button
               variant="contained"
               onClick={async () => {
-                addProductsToDataBase(product, "add");
+                setLoading(true);
+                await addProductsToDataBase(product, "add");
                 setProduct({
                   type: "",
                   price: "",
@@ -141,12 +145,20 @@ function EditProductsDialog(props) {
                   image: "",
                   id: generateRandomId(),
                 });
+                setLoading(false);
               }}
               sx={{
                 backgroundColor: "rgb(249 115 22) !important",
                 mt: 1,
-              }}>
-              SUBMIT
+              }}
+            >
+              {!loading ? (
+                "SUBMIT"
+              ) : (
+                <Box sx={{ display: "flex" }}>
+                  <CircularProgress />
+                </Box>
+              )}
             </Button>
           </Box>
         </DialogContent>

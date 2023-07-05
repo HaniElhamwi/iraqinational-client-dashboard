@@ -3,9 +3,11 @@ import Link from "next/link";
 import { HomeIcon, CreditCardIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/router";
 import LogoutIcon from "@mui/icons-material/Logout";
+import useLogOut from "../hooks/useLogout";
 
 const SideBar = forwardRef(({ showNav }, ref) => {
   const router = useRouter();
+  const { logout } = useLogOut();
 
   return (
     <div ref={ref} className="fixed w-56 h-full bg-white shadow-sm">
@@ -26,7 +28,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               router.pathname == "/"
                 ? "bg-orange-100 text-orange-500"
                 : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
-            }`}>
+            }`}
+          >
             <div className="mr-2">
               <HomeIcon className="h-5 w-5" />
             </div>
@@ -41,7 +44,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               router.pathname == "/products"
                 ? "bg-orange-100 text-orange-500"
                 : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
-            }`}>
+            }`}
+          >
             <div className="mr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +53,8 @@ const SideBar = forwardRef(({ showNav }, ref) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6">
+                className="w-6 h-6"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -62,13 +67,14 @@ const SideBar = forwardRef(({ showNav }, ref) => {
             </div>
           </div>
         </Link>
-        <Link href="/account">
+        <div onClick={() => logout()}>
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${
               router.pathname == "/account"
                 ? "bg-orange-100 text-orange-500"
                 : "text-gray-400 hover:bg-orange-100 hover:text-orange-500"
-            }`}>
+            }`}
+          >
             <div className="mr-2">
               <LogoutIcon className="h-5 w-5" />
             </div>
@@ -76,7 +82,7 @@ const SideBar = forwardRef(({ showNav }, ref) => {
               <p>Logout</p>
             </div>
           </div>
-        </Link>
+        </div>
         {/* <Link href="/billing">
           <div
             className={`pl-6 py-3 mx-5 rounded text-center cursor-pointer mb-3 flex items-center transition-colors ${

@@ -86,15 +86,17 @@ const Page = () => {
             display: "flex",
             flexDirection: "",
             justifyContent: "space-between",
-          }}>
+          }}
+        >
           <Box></Box>
           <Button
             variant="contained"
             onClick={() => setOpenDialog(true)}
             color="warning"
             sx={{ m: 2, background: "rgb(249 115 22) !important" }}
-            startIcon={<AddIcon />}>
-            Add Row
+            startIcon={<AddIcon />}
+          >
+            Add a Product
           </Button>
         </Box>
         <Table>
@@ -103,6 +105,7 @@ const Page = () => {
               <TableCell>Type</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Packaging</TableCell>
+              <TableCell>delivery terms</TableCell>
               <TableCell>Price Validity</TableCell>
               <TableCell>Image</TableCell>
               <TableCell>Action</TableCell>
