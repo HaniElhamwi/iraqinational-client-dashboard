@@ -6,7 +6,7 @@ function useUploadImage() {
   const [imageUrl, setImageUrl] = useState("");
 
   const uploadFile = async ({ file }) => {
-    const storageRef = ref(storage, `/${file.name}`);
+    const storageRef = ref(storage, `/${file?.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
     let image = "";
     await new Promise((resolve, reject) => {

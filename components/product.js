@@ -24,23 +24,23 @@ function Product({ setProducts, product, addProductsToDataBase }) {
         />
       )}
       <TableCell>
-        <Typography>{product.type}</Typography>
+        <Typography>{product.Type}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{product.price}</Typography>
+        <Typography>{product.Price}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{product.packaging}</Typography>
+        <Typography>{product.Packaging}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{product.deliveryTerms}</Typography>
+        <Typography>{product.DeliveryTerms}</Typography>
       </TableCell>
       <TableCell>
-        <Typography>{product.validity}</Typography>
+        <Typography>{product.Validity}</Typography>
       </TableCell>
       <TableCell>
         <img
-          src={product.image}
+          src={product.Image}
           style={{ width: 150, height: 100, objectFit: "cover" }}
         />
       </TableCell>

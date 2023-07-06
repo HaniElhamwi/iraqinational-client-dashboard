@@ -28,19 +28,19 @@ const Page = () => {
 
   const addProductsToDataBase = async (product, status) => {
     if (status === "add") {
-      const dataUrl = await uploadFile({ file: product.image });
+      const dataUrl = await uploadFile({ file: product.Image });
 
-      await updateProduct([...products, { ...product, image: dataUrl.image }]);
-      setProducts([...products, { ...product, image: dataUrl.image }]);
+      await updateProduct([...products, { ...product, Image: dataUrl.image }]);
+      setProducts([...products, { ...product, Image: dataUrl.image }]);
       setOpenDialog(false);
     } else if (status === "edit") {
       let dataUrl;
-      if (product.image.name) {
-        dataUrl = await uploadFile({ file: product.image });
+      if (product.Image.name) {
+        dataUrl = await uploadFile({ file: product.Image });
       }
       const newProducts = products.map((item) => {
         if (item.id === product.id) {
-          return { ...product, image: dataUrl ? dataUrl.image : item.image };
+          return { ...product, Image: dataUrl ? dataUrl.image : item.Image };
         } else {
           return item;
         }

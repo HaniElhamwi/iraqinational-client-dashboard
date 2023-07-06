@@ -16,12 +16,12 @@ function EditProductsDialog(props) {
   const { openDialog, setOpenDialog, setProducts, addProductsToDataBase } =
     props;
   const [product, setProduct] = useState({
-    type: "",
-    price: "",
-    packaging: "",
-    validity: "",
-    deliveryTerms: "",
-    image: "",
+    Type: "",
+    Price: "",
+    Packaging: "",
+    Validity: "",
+    DeliveryTerms: "",
+    Image: "",
     id: generateRandomId(),
   });
   const [imageUrl, setImageUrl] = useState("");
@@ -29,7 +29,7 @@ function EditProductsDialog(props) {
 
   function handleFileChange(event) {
     const file = event.target.files[0];
-    setProduct({ ...product, image: event.target.files[0] });
+    setProduct({ ...product, Image: event.target.files[0] });
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -65,38 +65,38 @@ function EditProductsDialog(props) {
               fullWidth
               size="small"
               placeholder="Type"
-              value={product.type}
+              value={product.Type}
               onChange={(e) => {
-                setProduct({ ...product, type: e.target.value });
+                setProduct({ ...product, Type: e.target.value });
               }}
             />
             <Box sx={{ display: "flex", gap: 2, my: 2 }}>
               <TextField
                 fullWidth
                 size="small"
-                value={product.price}
+                value={product.Price}
                 placeholder="price"
                 onChange={(e) => {
-                  setProduct({ ...product, price: e.target.value });
+                  setProduct({ ...product, Price: e.target.value });
                 }}
               />
               <TextField
                 fullWidth
                 size="small"
-                value={product.packaging}
+                value={product.Packaging}
                 placeholder="packaging"
                 onChange={(e) => {
-                  setProduct({ ...product, packaging: e.target.value });
+                  setProduct({ ...product, Packaging: e.target.value });
                 }}
               />
             </Box>
             <TextField
               fullWidth
               size="small"
-              value={product.deliveryTerms}
+              value={product.DeliveryTerms}
               placeholder="delivery terms"
               onChange={(e) => {
-                setProduct({ ...product, deliveryTerms: e.target.value });
+                setProduct({ ...product, DeliveryTerms: e.target.value });
               }}
             />
             <Box>
@@ -106,9 +106,9 @@ function EditProductsDialog(props) {
                 size="small"
                 placeholder="Price Validity"
                 type="date"
-                value={product.validity}
+                value={product.Validity}
                 onChange={(e) => {
-                  setProduct({ ...product, validity: e.target.value });
+                  setProduct({ ...product, Validity: e.target.value });
                 }}
               />
             </Box>
@@ -137,12 +137,12 @@ function EditProductsDialog(props) {
                 setLoading(true);
                 await addProductsToDataBase(product, "add");
                 setProduct({
-                  type: "",
-                  price: "",
-                  packaging: "",
-                  validity: "",
-                  deliveryTerms: "",
-                  image: "",
+                  Type: "",
+                  Price: "",
+                  Packaging: "",
+                  Validity: "",
+                  DeliveryTerms: "",
+                  Image: "",
                   id: generateRandomId(),
                 });
                 setLoading(false);
