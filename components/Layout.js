@@ -22,9 +22,8 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user && router.pathname !== "/reset-password") {
         const uid = user.uid;
-        console.log(uid);
       } else {
         router.push("/login");
       }
@@ -39,7 +38,7 @@ export default function Layout({ children }) {
 
   return (
     <>
-      {router.pathname !== "/login" ? (
+      {router.pathname !== "/login" && router.pathname !== "/reset-password" ? (
         <>
           {" "}
           <TopBar showNav={showNav} setShowNav={setShowNav} />
@@ -51,13 +50,15 @@ export default function Layout({ children }) {
             enterTo="translate-x-0"
             leave="transform duration-[400ms] transition ease-in-out"
             leaveFrom="translate-x-0"
-            leaveTo="-translate-x-full">
+            leaveTo="-translate-x-full"
+          >
             <SideBar showNav={showNav} />
           </Transition>
           <main
             className={`pt-16 transition-all duration-[400ms] ${
               showNav && !isMobile ? "pl-56" : ""
-            }`}>
+            }`}
+          >
             <div className="px-4 md:px-16">{children}</div>
           </main>
         </>
