@@ -201,11 +201,11 @@
     "category": "category"
   },
 
-  "category": {
-    "category": "Category",
-    "add_category": "Add Category",
-    "edit_category": "Edit Category",
-    "category_data": "Category Data"
+  "home": {
+    "home": "Home",
+    "add_category": "Add Home Section",
+    "edit_category": "Edit Home Section",
+    "category_data": "Home Data"
   },
 
   "tag": {

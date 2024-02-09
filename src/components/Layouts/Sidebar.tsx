@@ -71,10 +71,8 @@ const Sidebar = () => {
         <div className="h-full bg-white dark:bg-black">
           <div className="flex items-center justify-between px-4 py-3">
             <Link href="/" className="main-logo flex shrink-0 items-center">
-              <Image className="ml-[5px]  flex-none" src="/assets/images/logo.png" alt="logo" width={32} height={32} />
-              <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">
-                Akram Design
-              </span>
+              <Image className="ml-[5px]  flex-none" src="/assets/images/logo.png" alt="logo" width={130} height={100} />
+              <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline"></span>
             </Link>
 
             <button
@@ -207,30 +205,30 @@ const Sidebar = () => {
                   <li className="menu nav-item">
                     <button
                       type="button"
-                      className={`${currentMenu === 'category' ? 'active' : ''} nav-link group w-full`}
-                      onClick={() => toggleMenu('category')}
+                      className={`${currentMenu === 'home' ? 'active' : ''} nav-link group w-full`}
+                      onClick={() => toggleMenu('home')}
                     >
                       <div className="flex items-center">
                         <BoxIcon />
                         <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
-                          {t('category.category')}
+                          {t('home.home')}
                         </span>
                       </div>
 
-                      <div className={currentMenu === 'category' ? '!rotate-90' : 'rtl:rotate-180'}>
+                      <div className={currentMenu === 'home' ? '!rotate-90' : 'rtl:rotate-180'}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
                     </button>
 
-                    <AnimateHeight duration={300} height={currentMenu === 'category' ? 'auto' : 0}>
+                    <AnimateHeight duration={300} height={currentMenu === 'home' ? 'auto' : 0}>
                       <ul className="sub-menu text-gray-500">
                         <li>
-                          <Link href={paths.category.index}>{t('list')}</Link>
+                          <Link href={paths.home.index}>{t('list')}</Link>
                         </li>
                         <li>
-                          <Link href={paths.category.add}>{t('add')}</Link>
+                          <Link href={paths.home.add}>{t('add')}</Link>
                         </li>
                       </ul>
                     </AnimateHeight>

@@ -137,9 +137,6 @@ const Header = () => {
           <div className="horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 lg:hidden">
             <Link href="/" className="main-logo flex shrink-0 items-center">
               <Image width={32} height={32} className="inline ltr:-ml-1 rtl:-mr-1" src="/assets/images/logo.png" alt="logo" />
-              <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">
-                Akram
-              </span>
             </Link>
             <button
               type="button"
@@ -739,7 +736,7 @@ const Header = () => {
                     <div
                       className="!py-3 text-danger flex flex-row px-2 cursor-pointer"
                       onClick={() => {
-                        if (user?.id) logout();
+                        logout();
                       }}
                     >
                       <svg

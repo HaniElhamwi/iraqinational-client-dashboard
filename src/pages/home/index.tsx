@@ -51,20 +51,20 @@ const Category = () => {
             </Link>
           </li>
           <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-            <span>{t('category.category')}</span>
+            <span>{t('home.home')}</span>
           </li>
         </ul>
 
         <div>
-          <Link href={paths.category.add} className="btn btn-outline-primary ">
-            {t('category.add_category')}
+          <Link href={paths.home.add} className="btn btn-outline-primary ">
+            {t('home.add_category')}
           </Link>
         </div>
       </div>
 
       <div className="panel mt-6">
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
-          <h5 className="text-lg font-semibold dark:text-white-light">{t('category.category')}</h5>
+          <h5 className="text-lg font-semibold dark:text-white-light">{t('home.home')}</h5>
           <div className="ltr:ml-auto rtl:mr-auto">
             <input
               type="text"
@@ -125,7 +125,7 @@ const Category = () => {
                   <div className="mx-auto flex w-max items-center gap-2">
                     <Tippy content={t('edit')}>
                       <Link
-                        href={paths.category.edit(id)}
+                        href={paths.home.edit(id)}
                         className="text-indigo-600 hover:text-indigo-900 dark:text-white-light dark:hover:text-white-dark hover:underline"
                       >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">

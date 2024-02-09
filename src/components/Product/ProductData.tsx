@@ -106,7 +106,7 @@ export const ProductData = () => {
             </div>
             <div className="flex flex-col items-start mt-4">
               <div className="mt-4 w-full">
-                <label htmlFor="category">{t('category.category')}</label>
+                <label htmlFor="category">{t('home.home')}</label>
                 <div className="custom-select">
                   <Controller
                     name="categoryId"
@@ -116,7 +116,7 @@ export const ProductData = () => {
                         <Select
                           getOptionValue={(option: any) => `${option.id as string}`}
                           getOptionLabel={(option: any) => option.title as string}
-                          placeholder={t('category.category')}
+                          placeholder={t('home.home')}
                           noOptionsMessage={() => t('no_options')}
                           instanceId="category_select"
                           defaultOptions={data?.data}

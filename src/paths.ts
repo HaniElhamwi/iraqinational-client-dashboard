@@ -5,10 +5,10 @@ export const paths = {
     add: '/products/add',
     edit: (id: string) => `/products/edit/${id}`,
   },
-  category: {
-    index: '/category',
-    add: '/category/add',
-    edit: (id: string) => `/category/edit/${id}`,
+  home: {
+    index: '/home',
+    add: '/home/add',
+    edit: (id: string) => `/home/edit/${id}`,
   },
   users: {
     index: '/users',

@@ -20,7 +20,7 @@ export const CategoryData = () => {
   return (
     <div>
       <div className="mb-5 ml-5 flex items-center justify-between ">
-        <h5 className="text-lg font-semibold dark:text-white-light">{t('category.category_data')}</h5>
+        <h5 className="text-lg font-semibold dark:text-white-light">{t('home.category_data')}</h5>
       </div>
 
       <div className="mt-4 px-4">

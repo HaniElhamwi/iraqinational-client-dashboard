@@ -25,13 +25,12 @@ import { auth } from '@/../firebase';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { login: loginHandler } = useAuth();
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     dispatch(setPageTitle('Login'));
   });
 
   const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
-
   const themeConfig = useSelector((state: IRootState) => state.themeConfig);
   const setLocale = (flag: string) => {
     setFlag(flag);
@@ -48,7 +47,6 @@ const Login = () => {
 
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const { login, loginError, loginLoading } = useLogin();
 
   const {
     formState: { errors },
@@ -64,17 +62,26 @@ const Login = () => {
   });
 
   const handleLogin = async (data: LoginFormData) => {
+    setLoading(true);
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // ...
+        toastBar({
+          message: 'Login Success',
+          err: false,
+        });
+        setLoading(false);
+        router.push('/dashboard');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-
-        //
+        toastBar({
+          message: 'Use not Found',
+          err: true,
+        });
+        setLoading(false);
       });
   };
 
@@ -85,7 +92,7 @@ const Login = () => {
         <div className="relative flex  max-w-[600px]  w-full   flex-col justify-between overflow-hidden rounded-md bg-white/60 backdrop-blur-lg dark:bg-black/50 lg:flex-row lg:gap-10 xl:gap-0">
           <div className="relative flex flex-col gap-6 px-4 pb-16 pt-6 sm:px-6 justify-center items-center  w-full">
             <div className="flex w-full  items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full">
-              <img src="/assets/images/logo.png" alt="Logo" className="mx-auto w-[60px] h-[60px]" />
+              <img src="/assets/images/logo.png" alt="Logo" className=" h-[60px]" />
               <div className="dropdown ms-auto w-max">
                 {flag && (
                   <Dropdown
@@ -140,13 +147,7 @@ const Login = () => {
             </div>
             <form className="w-full lg:mt-16" onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-10">
-                <h1 className="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">
-                  {loginLoading ? (
-                    <span className="animate-spin border-[3px] border-success border-l-transparent rounded-full w-6 h-6 inline-block align-middle" />
-                  ) : (
-                    'Sign in'
-                  )}
-                </h1>
+                <h1 className="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Sign in</h1>
                 <p className="text-base font-bold leading-normal text-white-dark">Enter your email and password to login</p>
               </div>
               <div className="space-y-5 dark:text-white">
@@ -191,7 +192,11 @@ const Login = () => {
                   type="submit"
                   className="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]"
                 >
-                  Sign in
+                  {loading ? (
+                    <span className="animate-spin border-[3px] border-success border-l-transparent rounded-full w-6 h-6 inline-block align-middle" />
+                  ) : (
+                    'Sign in'
+                  )}
                 </button>
               </div>
 

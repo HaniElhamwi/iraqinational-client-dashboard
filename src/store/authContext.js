@@ -1,8 +1,10 @@
 // AuthContext.js
 import { useRefreshToken } from '@/hooks';
 import { paths } from '@/paths';
-import { useRouter } from 'next/router';
+import { onAuthStateChanged } from '@firebase/auth';
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { auth } from '../../firebase';
+import { useRouter } from 'next/router';
 
 const AuthContext = createContext({
   login: (accessToken, user) => {},
@@ -21,30 +23,27 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const { refreshToken } = useRefreshToken();
-  const router = useRouter();
+  const nextRouter = useRouter();
 
   const handleRefresh = async () => {
-    const refreshRed = await refreshToken();
-
-    if (refreshRed?.message === 'Forbidden resource') {
-      router.push(paths.login);
-      return;
-    }
-    if (refreshRed?.user) {
-      setUser(refreshRed.user);
-      if (refreshRed?.accessToken) {
-        localStorage.setItem('access_token', refreshRed.accessToken);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        // nextRouter.push(paths.home);
+        nextRouter.push(paths.index);
+        const uid = user.uid;
+        // ...
+      } else {
+        setUser(null);
+        nextRouter.push(paths.login);
+        // User is signed out
+        // ...
       }
-    }
-    if (router.pathname.includes('login')) router.replace('/products');
+    });
   };
 
   useEffect(() => {
     handleRefresh();
-
-    // setUser(null);
-    // router.push('/login');
   }, []);
 
   const login = (accessToken, userData) => {
