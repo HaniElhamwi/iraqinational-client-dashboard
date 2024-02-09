@@ -211,6 +211,11 @@
     "thirdOption": "Third Option",
     "fourthOption": "Fourth Option"
   },
+  "category": {
+    "category": "Category",
+    "add_category": "Add Category",
+    "edit_category": "Edit Category"
+  },
 
   "tag": {
     "tags": "Tags"

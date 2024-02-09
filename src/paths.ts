@@ -19,6 +19,10 @@ export const paths = {
     edit: (id: string) => `/news/edit/${id}`,
     add: '/news/add',
   },
+  category: {
+    index: '/category',
+    add: '/category/add',
+  },
   401: '/401',
   403: '/403',
   404: '/404',

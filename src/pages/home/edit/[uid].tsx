@@ -6,12 +6,12 @@ import { KeyboardEvent, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import 'react-quill/dist/quill.snow.css';
-import { CategoryFormData, CategoryFormSchema } from '@/types';
+import { HomeFormData, HomeFormSchema } from '@/types';
 
 import { setPageTitle } from '../../../store/themeConfigSlice';
 import { paths } from '@/paths';
 import { useEditCategory, useGetCategory, useUploadImage } from '@/hooks';
-import { CategoryForm } from '@/components/category/CategoryForm';
+import { CategoryForm } from '../../../../category/CategoryForm';
 import { useRouter } from 'next/router';
 
 const EditProduct = () => {
@@ -22,8 +22,8 @@ const EditProduct = () => {
 
   const { data, isLoading } = useGetCategory((router.query.uid || '') as string);
 
-  const method = useForm<CategoryFormData, CategoryFormData>({
-    resolver: valibotResolver(CategoryFormSchema),
+  const method = useForm<HomeFormData, HomeFormData>({
+    resolver: valibotResolver(HomeFormSchema),
     defaultValues: {
       arTitle: '',
       enDescription: '',
@@ -46,7 +46,7 @@ const EditProduct = () => {
 
   const { t } = useTranslation();
 
-  const handleUpdateCategory = async (categoryData: CategoryFormData) => {
+  const handleUpdateCategory = async (categoryData: HomeFormData) => {
     if (categoryData.image[0]?.file) {
       const image = await uploadImage(categoryData.image[0]?.file);
       updateCategory({ ...categoryData, image });

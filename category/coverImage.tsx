@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import ImageUploading from 'react-images-uploading';
 import { useFormContext, Controller } from 'react-hook-form';
 
-import { CategoryFormData, ProductFormData } from '@/types';
+import { HomeFormData, ProductFormData } from '@/types';
 
 import { ImageView } from './ImageView';
 
@@ -12,7 +12,7 @@ const CoverImage = () => {
     formState: { errors },
 
     setError,
-  } = useFormContext<CategoryFormData, CategoryFormData>();
+  } = useFormContext<HomeFormData, HomeFormData>();
 
   const { t } = useTranslation();
 

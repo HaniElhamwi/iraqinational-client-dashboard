@@ -5,7 +5,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { customAlphabet } from 'nanoid';
 
 import { Input, TextArea } from '@/shared';
-import { CategoryFormData, ProductFormData } from '@/types';
+import { HomeFormData, ProductFormData } from '@/types';
 import { useGetCategories } from '@/hooks';
 import { useState } from 'react';
 
@@ -17,7 +17,7 @@ export const CategoryData = () => {
     setValue,
 
     formState: { errors },
-  } = useFormContext<CategoryFormData, CategoryFormData>();
+  } = useFormContext<HomeFormData, HomeFormData>();
   const [lan, setLan] = useState<'en' | 'ar'>('en');
 
   const { t } = useTranslation();

@@ -67,29 +67,6 @@ export const ProductData = () => {
                 {...register('title')}
               />
             </div>
-
-            <div className="mt-4 flex flex-col items-start">
-              <Input
-                id="price"
-                placeholder={t('product.price')}
-                error={errors.price}
-                label={t('product.price')}
-                required
-                {...register('price')}
-              />
-              {errors.description && <span className="text-red-500">{t(`${errors.description?.message}`)}</span>}
-            </div>
-            <div className="mt-4 flex flex-col items-start">
-              <Input
-                id="quantity"
-                placeholder={t('product.quantity')}
-                error={errors.price}
-                label={t('product.quantity')}
-                required
-                {...register('quantity')}
-              />
-              {errors.description && <span className="text-red-500">{t(`${errors.description?.message}`)}</span>}
-            </div>
           </div>
 
           <div className="w-full lg:w-1/2">
@@ -106,7 +83,7 @@ export const ProductData = () => {
             </div>
             <div className="flex flex-col items-start mt-4">
               <div className="mt-4 w-full">
-                <label htmlFor="category">{t('home.home')}</label>
+                <label htmlFor="category">{t('category.category')}</label>
                 <div className="custom-select">
                   <Controller
                     name="categoryId"
@@ -129,106 +106,6 @@ export const ProductData = () => {
                   {errors.categoryId && <div className="text-red-500">choose category</div>}
                 </div>
               </div>
-            </div>
-            <div className="flex flex-col items-start mt-3">
-              <div className=" w-full">
-                <label htmlFor="category">{t('users.published')}</label>
-                <div className="custom-select">
-                  <Controller
-                    name="published"
-                    control={control}
-                    render={({ field: { name, value, onChange } }) => {
-                      return (
-                        <Select
-                          getOptionValue={(option): string => option.value as any}
-                          getOptionLabel={(option: any) => option?.title}
-                          placeholder={t('users.role')}
-                          noOptionsMessage={() => t('no_options')}
-                          instanceId="category_select"
-                          defaultOptions={[
-                            { value: true, title: 'published' },
-                            { value: false, title: 'disabled' },
-                          ]}
-                          name={name}
-                          value={{ value: value, title: value ? 'published' : 'disabled' }}
-                          onChange={(e) => onChange(e?.value)}
-                        />
-                      );
-                    }}
-                  />
-                </div>
-              </div>
-            </div>{' '}
-            <div className="flex flex-col items-start mt-3">
-              <div className=" w-full">
-                <label htmlFor="category">{t('users.showPlace')}</label>
-                <div className="custom-select">
-                  <Controller
-                    name="showPlace"
-                    control={control}
-                    render={({ field: { name, value, onChange } }) => {
-                      return (
-                        <Select
-                          getOptionValue={(option): string => option.value as any}
-                          getOptionLabel={(option: any) => option?.title}
-                          placeholder={t('product.showPlace')}
-                          noOptionsMessage={() => t('no_options')}
-                          instanceId="category_select"
-                          defaultOptions={[
-                            { value: true, title: 'show place' },
-                            { value: false, title: 'disabled' },
-                          ]}
-                          name={name}
-                          value={{ value: value, title: value ? 'show place' : 'disabled' }}
-                          onChange={(e) => onChange(e?.value)}
-                        />
-                      );
-                    }}
-                  />
-                </div>
-              </div>
-            </div>{' '}
-            <div className="flex flex-col items-start mt-3">
-              <div className=" w-full">
-                <label htmlFor="category">{t('users.country')}</label>
-                <div className="custom-select">
-                  <Controller
-                    name="country"
-                    control={control}
-                    render={({ field: { name, value, onChange } }) => {
-                      return (
-                        <Select
-                          getOptionValue={(option) => option.value}
-                          getOptionLabel={(option) => option.label}
-                          placeholder={t('users.country')}
-                          noOptionsMessage={() => t('no_options')}
-                          instanceId="category_select"
-                          name={name}
-                          cacheOptions
-                          loadOptions={promiseOptions}
-                          value={{
-                            value: value,
-                            label: value,
-                          }}
-                          onChange={(e) => onChange(e?.value)}
-                          isSearchable
-                        />
-                      );
-                    }}
-                  />
-                  {errors.country && <span className="text-red-500">{t(`${errors.country?.message}`)}</span>}
-                </div>
-              </div>
-            </div>
-            <div className="mt-4 flex flex-col items-start">
-              <Input
-                id="city"
-                placeholder={t('product.city')}
-                error={errors.city}
-                label={t('product.city')}
-                required
-                {...register('city')}
-              />
             </div>
           </div>
         </div>

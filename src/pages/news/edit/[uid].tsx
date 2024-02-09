@@ -6,7 +6,7 @@ import { KeyboardEvent, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import 'react-quill/dist/quill.snow.css';
-import { CategoryFormSchema, NewsFormData, NewsFormSchema } from '@/types';
+import { HomeFormSchema, NewsFormData, NewsFormSchema } from '@/types';
 import { setPageTitle } from '../../../store/themeConfigSlice';
 import { paths } from '@/paths';
 import { useEditNews, useGetSingleNews, useUploadImage } from '@/hooks';

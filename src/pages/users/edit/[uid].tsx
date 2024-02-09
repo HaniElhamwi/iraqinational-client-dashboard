@@ -10,12 +10,12 @@ import { valibotResolver } from '@hookform/resolvers/valibot';
 import 'react-quill/dist/quill.snow.css';
 
 // import { useProduct } from '@/hooks';
-import { CategoryFormData, CategoryFormSchema, UserFormData, UserFormSchema } from '@/types';
+import { HomeFormData, HomeFormSchema, UserFormData, UserFormSchema } from '@/types';
 
 import { setPageTitle } from '../../../store/themeConfigSlice';
 import { paths } from '@/paths';
 import { useCreateCategory, useEditCategory, useGetCategory, useGetUser, useUpdateUser } from '@/hooks';
-import { CategoryForm } from '@/components/category/CategoryForm';
+import { CategoryForm } from '../../../../category/CategoryForm';
 import { useRouter } from 'next/router';
 import { Profile, UsersForm } from '@/components';
 
