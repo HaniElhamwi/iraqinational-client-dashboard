@@ -1,38 +1,59 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { CategoryFormData, ProductFormData } from '@/types';
 import { toastBar } from '@/utils/comp/toastbar';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { catchError, getApiHeader } from '@/utils';
+import { db } from '../../../firebase';
+import { useRouter } from 'next/router';
+import { paths } from '@/paths';
+
+const createRandomId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
 
 const createCategory = async (category: CategoryFormData) => {
-  delete category.id;
-  delete category.updatedAt;
-  delete category.createdAt;
-
-  //   if (product.categoryId) delete product.categoryId;
-
-  const headers = getApiHeader();
+  const randomId = createRandomId();
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/category', {
-      method: 'POST',
-      credentials: 'include',
-      headers,
-      body: JSON.stringify({
-        ...category,
-      }),
+    await setDoc(doc(db, 'home', randomId.toString()), {
+      id: randomId.toString(),
+      title: {
+        en: category.enTitle,
+        ar: category.arTitle,
+      },
+      description: {
+        en: category.enDescription,
+        ar: category.arDescription,
+      },
+      image: category.image,
+      firstOption: {
+        en: category.enFirstOption,
+        ar: category.arFirstOption,
+      },
+      secondOption: {
+        en: category.enSecondOption,
+        ar: category.arSecondOption,
+      },
+      thirdOption: {
+        en: category.enThirdOption,
+        ar: category.arThirdOption,
+      },
+      fourthOption: {
+        en: category.enFourthOption,
+        ar: category.arFourthOption,
+      },
     });
-    catchError(response);
-    toastBar({ message: 'Category Added  successfully' });
-    const res = await response.json();
-    return res;
+    toastBar({ message: 'Home Section Added  successfully' });
+    return 'success';
   } catch (err) {
     console.error('update', err);
   }
 };
 
 export const useCreateCategory = () => {
+  const router = useRouter();
   const { mutateAsync, isLoading, error } = useMutation((requestData: CategoryFormData) => createCategory(requestData), {
     onSuccess: () => {
-      //   router.push(paths.products.index);
+      router.push(paths.home.index);
     },
   });
   return {
@@ -43,25 +64,37 @@ export const useCreateCategory = () => {
 };
 
 const editCategory = async (category: CategoryFormData) => {
-  delete category.updatedAt;
-  delete category.createdAt;
-  const headers = getApiHeader();
-
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/category/' + category.id, {
-      method: 'PUT',
-      credentials: 'include',
-      headers,
-      body: JSON.stringify({
-        ...category,
-      }),
+    const washingtonRef = doc(db, 'home', category?.id || '12345');
+
+    await updateDoc(washingtonRef, {
+      title: {
+        en: category.enTitle,
+        ar: category.arTitle,
+      },
+      description: {
+        en: category.enDescription,
+        ar: category.arDescription,
+      },
+      image: category.image,
+      firstOption: {
+        en: category.enFirstOption,
+        ar: category.arFirstOption,
+      },
+      secondOption: {
+        en: category.enSecondOption,
+        ar: category.arSecondOption,
+      },
+      thirdOption: {
+        en: category.enThirdOption,
+        ar: category.arThirdOption,
+      },
+      fourthOption: {
+        en: category.enFourthOption,
+        ar: category.arFourthOption,
+      },
     });
-
-    catchError(response);
-
     toastBar({ message: 'Category Edit Successfully' });
-    const res = await response.json();
-    return res;
   } catch (err) {
     console.error('update', err);
   }

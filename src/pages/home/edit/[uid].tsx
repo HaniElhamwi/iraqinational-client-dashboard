@@ -25,10 +25,18 @@ const EditProduct = () => {
   const method = useForm<CategoryFormData, CategoryFormData>({
     resolver: valibotResolver(CategoryFormSchema),
     defaultValues: {
-      title: undefined,
-      image: '',
-      description: '',
-      published: false,
+      arTitle: '',
+      enDescription: '',
+      arDescription: '',
+      enFirstOption: '',
+      arFirstOption: '',
+      enSecondOption: '',
+      arSecondOption: '',
+      enThirdOption: '',
+      arThirdOption: '',
+      enFourthOption: '',
+      arFourthOption: '',
+      image: [],
     },
   });
 
@@ -53,19 +61,25 @@ const EditProduct = () => {
     if (e.key === 'Enter') e.preventDefault();
   };
 
+  console.log(data);
+
   useEffect(() => {
     if (data && !isLoading) {
       method.reset({
-        description: String(data?.description ?? ''),
-        image: [
-          {
-            key: data?.image,
-            dataURL: data?.image,
-          },
-        ],
-        title: String(data?.title ?? ''),
-        id: data?.id,
-        published: data?.published,
+        enTitle: data.title.en,
+        arTitle: data.title.ar,
+        enDescription: data.description.en,
+        arDescription: data.description.ar,
+        enFirstOption: data.firstOption.en,
+        arFirstOption: data.firstOption.ar,
+        enSecondOption: data.secondOption.en,
+        arSecondOption: data.secondOption.ar,
+        enThirdOption: data.thirdOption.en,
+        arThirdOption: data.thirdOption.ar,
+        enFourthOption: data.fourthOption.en,
+        arFourthOption: data.fourthOption.ar,
+        image: data.image,
+        id: data.id,
       });
     }
   }, [isLoading, data]);

@@ -205,7 +205,11 @@
     "home": "Home",
     "add_category": "Add Home Section",
     "edit_category": "Edit Home Section",
-    "category_data": "Home Data"
+    "category_data": "Home Data",
+    "firstOption": "First Option",
+    "secondOption": "Second Option",
+    "thirdOption": "Third Option",
+    "fourthOption": "Fourth Option"
   },
 
   "tag": {

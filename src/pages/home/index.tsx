@@ -17,6 +17,7 @@ import IconTrash from '@/components/icon/IconTrash';
 
 const Category = () => {
   const { t } = useTranslation('category');
+  const [lan, setLan] = useState('en');
 
   const [search, setSearch] = useState<ProductSearch>({
     page: 1,
@@ -65,7 +66,24 @@ const Category = () => {
       <div className="panel mt-6">
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">{t('home.home')}</h5>
-          <div className="ltr:ml-auto rtl:mr-auto">
+          <div className="ltr:ml-auto rtl:mr-auto flex flex-row gap-5">
+            <div className="flex flex-row justify-center ">
+              {' '}
+              <button
+                type="button"
+                className={`${lan == 'ar' ? 'bg-primary text-white' : ''} btn btn-outline-info ltr:rounded-r-none rtl:rounded-l-none`}
+                onClick={() => setLan('ar')}
+              >
+                Arabic
+              </button>
+              <button
+                type="button"
+                className={`${lan == 'en' ? 'bg-primary text-white' : ''} btn btn-outline-info rounded`}
+                onClick={() => setLan('en')}
+              >
+                English
+              </button>
+            </div>
             <input
               type="text"
               className="form-input w-auto"
@@ -78,7 +96,7 @@ const Category = () => {
         <div className="datatables">
           <DataTable
             className="table-hover whitespace-nowrap"
-            records={data?.data}
+            records={data}
             columns={[
               {
                 accessor: 'title',
@@ -94,34 +112,20 @@ const Category = () => {
                 accessor: 'name',
                 title: t('name'),
                 sortable: true,
-                render: ({ title }) => <div>{title}</div>,
+                render: ({ title }) => <div>{title[lan]}</div>,
               },
               {
-                accessor: 'published',
-                title: t('status'),
+                accessor: 'description',
+                title: t('description'),
                 sortable: true,
-                render: ({ published }) => (
-                  <div className={`badge bg-${published ? 'success' : 'danger'} w-full lg:w-2/4 min-w-min`}>
-                    {published ? 'Published' : 'disabled'}
-                  </div>
-                ),
-              },
-              {
-                accessor: 'create At',
-                title: t('createdAt'),
-                sortable: true,
-                render: ({ CreatedAt }) => (
-                  <div className={`badge bg-${CreatedAt ? 'success' : 'danger'} w-full lg:w-2/4 min-w-min`}>
-                    {new Date(CreatedAt).toLocaleDateString()}
-                  </div>
-                ),
+                render: ({ description }) => <div className={`badge  w-full lg:w-2/4 min-w-min`}>{description[lan]}</div>,
               },
 
               {
                 accessor: 'actions',
                 title: t('actions'),
                 titleClassName: '!text-center',
-                render: ({ id }) => (
+                render: ({ title, id }) => (
                   <div className="mx-auto flex w-max items-center gap-2">
                     <Tippy content={t('edit')}>
                       <Link
@@ -157,7 +161,7 @@ const Category = () => {
                             showLoaderOnConfirm: true,
                           }).then((result) => {
                             if (result.value) {
-                              deleteCategory(id);
+                              //   deleteCategory(id);
                             }
                           });
                         }}
@@ -171,7 +175,7 @@ const Category = () => {
                 ),
               },
             ]}
-            totalRecords={data?.count}
+            totalRecords={data?.length}
             recordsPerPage={search.limit}
             page={search.page}
             onPageChange={(p) => setSearch({ ...search, page: p })}

@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
       if (user) {
         setUser(user);
         // nextRouter.push(paths.home);
-        nextRouter.push(paths.index);
+        if (nextRouter.pathname === paths.login) nextRouter.push(paths.home);
         const uid = user.uid;
         // ...
       } else {

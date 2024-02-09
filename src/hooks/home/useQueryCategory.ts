@@ -1,5 +1,7 @@
 import { useQuery } from 'react-query';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 import { ProductSearch } from '..';
+import { db } from '../../../firebase';
 
 const fetchCategories = async (props: ProductSearch) => {
   const params = new URLSearchParams();
@@ -8,14 +10,24 @@ const fetchCategories = async (props: ProductSearch) => {
   params.append('direction', props.direction);
   params.append('admin', 'admin');
 
-  if (props.search) params.append('name', props.search);
+  //   if (props.search) params.append('name', props.search);
 
-  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/category?' + params, { credentials: 'include' });
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const res = await response.json();
-  return res;
+  //   const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/category?' + params, { credentials: 'include' });
+  //   if (!response.ok) {
+  //     throw new Error('Network response was not ok');
+  //   }
+  //   const res = await response.json();
+  //   return res;
+  const q = query(collection(db, 'home'));
+
+  const querySnapshot = await getDocs(q);
+  const docs: any = [];
+  querySnapshot.forEach((doc) => {
+    docs.push(doc.data());
+  });
+  console.log('🚀 ~ fetchCategories ~ docs:', docs);
+
+  return docs;
 };
 
 export const useGetCategories = (page: number = 1, limit: number = 50, search: string = '', direction: 'ASC' | 'DESC' = 'ASC') => {
@@ -31,12 +43,10 @@ export const useGetCategories = (page: number = 1, limit: number = 50, search: s
 };
 
 const fetchCategory = async (id: string) => {
-  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/category/' + id, { credentials: 'include' });
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const res = await response.json();
-  return res;
+  const docRef = doc(db, 'home', id);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data();
 };
 export const useGetCategory = (id: string) => {
   const { data, isLoading, isError } = useQuery(['categories', id], () => fetchCategory(id));

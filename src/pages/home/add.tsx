@@ -25,9 +25,19 @@ const AddProduct = () => {
   const method = useForm<CategoryFormData, CategoryFormData>({
     resolver: valibotResolver(CategoryFormSchema),
     defaultValues: {
-      title: undefined,
-      image: '',
-      description: '',
+      enTitle: '',
+      arTitle: '',
+      enDescription: '',
+      arDescription: '',
+      image: [],
+      enFirstOption: '',
+      arFirstOption: '',
+      enSecondOption: '',
+      arSecondOption: '',
+      enThirdOption: '',
+      arThirdOption: '',
+      enFourthOption: '',
+      arFourthOption: '',
     },
   });
 
@@ -38,9 +48,6 @@ const AddProduct = () => {
   const { t } = useTranslation();
 
   const handleCreateCategory = async (data: CategoryFormData) => {
-    delete data.createdAt;
-    delete data.updatedAt;
-    delete data.id;
     if (data.image[0]?.file) {
       const image = await uploadImage(data.image[0]?.file);
       createCategory({ ...data, image });
@@ -49,6 +56,7 @@ const AddProduct = () => {
       createCategory(data);
       method.reset();
     }
+    console.log(data);
   };
 
   const onSubmit = method.handleSubmit((e) => handleCreateCategory(e));
@@ -66,7 +74,7 @@ const AddProduct = () => {
           </Link>
         </li>
         <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-          <span>{t('category.add_category')}</span>
+          <span>{t('home.add_category')}</span>
         </li>
       </ul>
 
@@ -77,7 +85,7 @@ const AddProduct = () => {
             {createCategoryLoading ? (
               <span className="animate-spin border-[3px] border-success border-l-transparent rounded-full w-6 h-6 inline-block align-middle" />
             ) : (
-              t('category.add_category')
+              t('home.add_category')
             )}
           </button>
         </form>
