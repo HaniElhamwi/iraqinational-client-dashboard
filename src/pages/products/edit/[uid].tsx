@@ -72,9 +72,10 @@ const AddProduct = () => {
       updateProduct({ ...prodData, image });
       setUploadLoading(false);
     } else {
-      updateProduct({ ...prodData });
+      updateProduct({ ...prodData, image });
       setUploadLoading(false);
     }
+    router.push(paths.products.index);
   };
 
   const onSubmit = method.handleSubmit((data) => handleEditProduct(data));

@@ -50,7 +50,7 @@ const AddProduct = () => {
 
   const createProduct = async (product: ProductFormData) => {
     try {
-      const washingtonRef = doc(db, 'products', 'Steel bull');
+      const washingtonRef = doc(db, 'products', product.category.title);
       const res = await updateDoc(washingtonRef, {
         products: arrayUnion({
           title: {
