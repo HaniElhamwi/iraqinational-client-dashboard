@@ -34,8 +34,6 @@ const AddProduct = () => {
   const { t } = useTranslation();
 
   const handleCreateNews = async (data: NewsFormData) => {
-    console.log(data);
-
     delete data.createdAt;
     delete data.updatedAt;
     delete data.id;

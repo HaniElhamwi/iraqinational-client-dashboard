@@ -51,7 +51,7 @@ const EditProduct = () => {
       const image = await uploadImage(categoryData.image[0]?.file);
       updateCategory({ ...categoryData, image });
     } else {
-      updateCategory({ ...categoryData, image: data.image });
+      updateCategory({ ...categoryData, image: data?.image });
     }
   };
 
@@ -60,8 +60,6 @@ const EditProduct = () => {
   const checkKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') e.preventDefault();
   };
-
-  console.log(data);
 
   useEffect(() => {
     if (data && !isLoading) {

@@ -26,8 +26,6 @@ const fetchCategories = async (props: ProductSearch) => {
     docs.push(doc.data());
   });
 
-  console.log(docs);
-
   return docs;
 };
 

@@ -56,7 +56,6 @@ const AddProduct = () => {
       createCategory(data);
       method.reset();
     }
-    console.log(data);
   };
 
   const onSubmit = method.handleSubmit((e) => handleCreateCategory(e));

@@ -16,27 +16,28 @@ import { ProductFormData, ProductFormSchema } from '@/types';
 import { setPageTitle } from '../../store/themeConfigSlice';
 import { paths } from '@/paths';
 import { useCreateProduct, useUploadImage } from '@/hooks';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { toastBar } from '@/utils/comp/toastbar';
+import { useRouter } from 'next/router';
+
+const createRandomId = () => {
+  return Math.floor(Math.random() * 1000000);
+};
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-  const { createProduct, createProductLoading, creteProductError } = useCreateProduct();
   const [uploadLoading, setUploadLoading] = useState(false);
   const { uploadImage } = useUploadImage();
 
   const method = useForm<ProductFormData, ProductFormData>({
     resolver: valibotResolver(ProductFormSchema),
     defaultValues: {
-      categoryId: {},
-      description: '',
-      price: '',
-      quantity: '',
-      images: [],
-      title: '',
-      userId: 0,
-      id: '',
-      city: '',
-      country: '',
-      showPlace: false,
+      enTitle: '',
+      arTitle: '',
+      enDescription: '',
+      arDescription: '',
+      image: [],
     },
   });
 
@@ -45,27 +46,45 @@ const AddProduct = () => {
   });
 
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const createProduct = async (product: ProductFormData) => {
+    try {
+      const washingtonRef = doc(db, 'products', 'Steel bull');
+      const res = await updateDoc(washingtonRef, {
+        products: arrayUnion({
+          title: {
+            en: product.enTitle,
+            ar: product.arTitle,
+          },
+          image: product.image,
+          id: createRandomId(),
+          description: {
+            en: product.enDescription,
+            ar: product.arDescription,
+          },
+        }),
+      });
+      setUploadLoading(false);
+
+      toastBar({ message: 'product added successfully' });
+    } catch {
+      setUploadLoading(false);
+      toastBar({ message: 'Error adding the product' });
+    }
+  };
 
   const handleCreateProduct = async (data: ProductFormData) => {
-    const imagesData = [];
     setUploadLoading(true);
-    if (data?.images?.length) {
-      for (const file of data.images) {
-        if (file?.file) {
-          const image = await uploadImage(file.file);
-          imagesData.push(image);
-        } else {
-          imagesData.push(file);
-        }
-      }
-      createProduct({ ...data, images: imagesData });
+    if (data.image[0]?.file) {
+      const image = await uploadImage(data.image[0]?.file);
+      createProduct({ ...data, image });
       method.reset();
-
-      setUploadLoading(false);
+      router.push(paths.products.index);
     } else {
       createProduct({ ...data });
       method.reset();
-      setUploadLoading(false);
+      router.push(paths.products.index);
     }
   };
 
@@ -92,8 +111,8 @@ const AddProduct = () => {
         <form onSubmit={onSubmit} onKeyDown={checkKeyDown}>
           <ProductForm />
 
-          <button disabled={createProductLoading || uploadLoading} type="submit" className="btn btn-primary mt-5 ml-5">
-            {createProductLoading || uploadLoading ? (
+          <button disabled={uploadLoading} type="submit" className="btn btn-primary mt-5 ml-5">
+            {uploadLoading ? (
               <span className="animate-spin border-[3px] border-success border-l-transparent rounded-full w-6 h-6 inline-block align-middle" />
             ) : (
               t('product.add_product')

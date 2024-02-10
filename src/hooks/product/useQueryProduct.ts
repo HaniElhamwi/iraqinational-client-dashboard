@@ -1,5 +1,8 @@
 import { useQuery } from 'react-query';
-import { redirect } from 'next/navigation';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
+
+import { db } from '../../../firebase';
 
 export interface ProductSearch {
   page: number;
@@ -9,22 +12,23 @@ export interface ProductSearch {
 }
 
 const fetchProducts = async (props: ProductSearch) => {
-  const params = new URLSearchParams();
-  params.append('page', props.page.toString());
-  params.append('limit', props.limit.toString());
-  params.append('direction', props.direction);
-  params.append('admin', 'admin');
+  const q = query(collection(db, 'products'));
 
-  if (props.search) {
-    params.append('name', props.search);
-  }
-  const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/products?' + params, { credentials: 'include' });
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  const res = await response.json();
-
-  return res;
+  const querySnapshot = await getDocs(q);
+  const products: any = [];
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    if (data?.products) {
+      data.products.forEach((product: any) => {
+        products.push({
+          ...product,
+          category: data?.category['en'],
+          categoryId: data?.categoryId,
+        });
+      });
+    }
+  });
+  return products;
 };
 
 export const useGetProducts = (page: number = 1, limit: number = 50, search: string = '', direction: 'ASC' | 'DESC' = 'ASC') => {
@@ -40,20 +44,16 @@ export const useGetProducts = (page: number = 1, limit: number = 50, search: str
 };
 
 export const useGetProduct = (id: string) => {
-  const fetchProduct = async (id: number) => {
+  const fetchProduct = async (id: string) => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/products/' + id);
-
-      const res = await response.json();
-
-      if (res.statusCode == 400) throw new Error('product not found');
-
-      return res;
+      const docRef = doc(db, 'products', id);
+      const docSnap = await getDoc(docRef);
+      return docSnap.data();
     } catch (err) {
       console.log(err);
     }
   };
-  const { data, isLoading, isError } = useQuery(['product', id], async () => fetchProduct(parseInt(id)), {
+  const { data, isLoading, isError } = useQuery(['product', id], async () => fetchProduct(id), {
     onSuccess: () => {},
     onError: () => {},
   });

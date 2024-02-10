@@ -2,28 +2,28 @@ import { useMutation, useQueryClient } from 'react-query';
 import { ProductFormData } from '@/types';
 import { toastBar } from '@/utils/comp/toastbar';
 import { catchError, getApiHeader } from '@/utils';
+import { db } from '../../../firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const createProduct = async (product: ProductFormData) => {
-  delete product.userId;
-  delete product.id;
-  const category = product.categoryId?.id.toString();
-  const headers = getApiHeader();
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/products', {
-      method: 'POST',
-      credentials: 'include',
-      headers,
-      body: JSON.stringify({
-        ...product,
-        category,
-      }),
+    const washingtonRef = doc(db, 'products', product.category);
+
+    await updateDoc(washingtonRef, {
+      products: [
+        {
+          title: {
+            en: product.enTitle,
+            ar: product.arTitle,
+          },
+          image: product.image,
+        },
+      ],
     });
 
-    catchError(response);
-
     toastBar({ message: 'product added successfully' });
-    const res = await response.json();
-    return res;
+
+    return ['success'];
   } catch (err) {
     console.error('update', err);
   }
@@ -43,22 +43,37 @@ export const useCreateProduct = () => {
 };
 
 const updateProduct = async (product: ProductFormData) => {
-  const headers = getApiHeader();
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/products/' + product.id, {
-      method: 'PUT',
-      credentials: 'include',
-      headers,
-      body: JSON.stringify({
-        ...product,
-        categoryId: '2',
-        category: product?.categoryId?.id?.toString(),
-      }),
-    });
-    catchError(response);
-    toastBar({ message: 'product updated successfully' });
-    const res = await response.json();
-    return res;
+    console.log(product);
+
+    const docRef = doc(db, 'products', product.categoryId as string);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const productsData = docSnap.data().products.map((prod: any) => {
+        if (prod.id === product.id) {
+          prod = {
+            title: {
+              en: product.enTitle,
+              ar: product.arTitle,
+            },
+            description: {
+              en: product.enDescription,
+              ar: product.arDescription,
+            },
+            image: product.image,
+            id: product.id,
+          };
+        }
+        return prod;
+      });
+      const washingtonRef = doc(db, 'products', product.categoryId as string);
+      await updateDoc(washingtonRef, {
+        products: productsData,
+      });
+      toastBar({ message: 'product updated successfully' });
+    } else {
+      toastBar({ message: 'No such document!' });
+    }
   } catch (err) {
     console.error('update', err);
   }

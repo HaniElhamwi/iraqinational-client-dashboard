@@ -19,27 +19,22 @@ const AddProduct = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [uploadLoading, setUploadLoading] = useState(false);
-
   const { updateProduct, updateProductLoading } = useUpdateProduct();
   const { uploadImage } = useUploadImage();
+  const [product, setProduct] = useState<any>(null);
 
   const { data, isError, isLoading } = useGetProduct(router?.query?.uid as string);
+  // get product params
 
   const method = useForm<ProductFormData, ProductFormData>({
     resolver: valibotResolver(ProductFormSchema),
     defaultValues: {
-      categoryId: {},
-      description: '',
-      price: '',
-      quantity: '',
-      images: [],
-      title: '',
-      userId: 0,
-      id: '',
-      published: false,
-      city: '',
-      showPlace: false,
-      country: '',
+      arDescription: '',
+      arTitle: '',
+      category: '',
+      enDescription: '',
+      enTitle: '',
+      image: '',
     },
   });
 
@@ -48,41 +43,33 @@ const AddProduct = () => {
   });
 
   useEffect(() => {
-    if (data && !isLoading && !isError) {
+    if (product) {
       method.reset({
-        categoryId: data?.category,
-        description: String(data?.description ?? ''),
-        price: data?.price ?? '',
-        quantity: data?.quantity,
-        title: String(data?.title ?? ''),
-        userId: data?.userId,
-        id: data?.id,
-        published: data?.published,
-        city: data?.city,
-        showPlace: data?.showPlace,
-        country: data?.country,
-        images: data?.images,
+        arDescription: product?.description['ar'],
+        arTitle: product?.title['ar'],
+        category: 'tttt',
+        categoryId: router?.query?.uid as string,
+        enDescription: product?.description['en'],
+        enTitle: product?.title['en'],
+        image: [
+          {
+            key: product?.image,
+            dataURL: product?.image,
+          },
+        ],
+        id: product?.id,
       });
     }
-  }, [data, isError, isLoading, method]);
+  }, [product]);
 
   const { t } = useTranslation();
 
   const handleEditProduct = async (prodData: ProductFormData) => {
-    const imagesData = [];
-
     setUploadLoading(true);
-    if (prodData?.images?.length) {
-      for (const file of prodData.images) {
-        if (typeof file !== 'string') {
-          const image = await uploadImage(file.file);
-          imagesData.push(image);
-        } else {
-          imagesData.push(file);
-        }
-      }
-
-      updateProduct({ ...prodData, images: imagesData });
+    const image: string = prodData.image[0].dataURL;
+    if (prodData.image[0]?.file) {
+      const image = await uploadImage(prodData.image[0]?.file);
+      updateProduct({ ...prodData, image });
       setUploadLoading(false);
     } else {
       updateProduct({ ...prodData });
@@ -95,6 +82,18 @@ const AddProduct = () => {
   const checkKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') e.preventDefault();
   };
+
+  useEffect(() => {
+    if (data) {
+      const product = data?.products?.filter((product: any) => product.id == router.query.product);
+
+      if (product) {
+        setProduct(product[0]);
+      } else {
+        router.push(paths.products.index);
+      }
+    }
+  }, [data]);
 
   return (
     <div>

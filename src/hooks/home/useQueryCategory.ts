@@ -25,7 +25,6 @@ const fetchCategories = async (props: ProductSearch) => {
   querySnapshot.forEach((doc) => {
     docs.push(doc.data());
   });
-  console.log('🚀 ~ fetchCategories ~ docs:', docs);
 
   return docs;
 };

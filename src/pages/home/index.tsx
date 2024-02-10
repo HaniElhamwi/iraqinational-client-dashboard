@@ -112,13 +112,13 @@ const Category = () => {
                 accessor: 'name',
                 title: t('name'),
                 sortable: true,
-                render: ({ title }) => <div>{title[lan]}</div>,
+                render: ({ title }) => <div>{title && title[lan]}</div>,
               },
               {
                 accessor: 'description',
                 title: t('description'),
                 sortable: true,
-                render: ({ description }) => <div className={`badge  w-full lg:w-2/4 min-w-min`}>{description[lan]}</div>,
+                render: ({ description }) => <div className={`badge  w-full lg:w-2/4 min-w-min`}>{description && description[lan]}</div>,
               },
 
               {

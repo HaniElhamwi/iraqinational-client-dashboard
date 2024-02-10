@@ -2,23 +2,24 @@ import { useTranslation } from 'react-i18next';
 import ImageUploading from 'react-images-uploading';
 import { useFormContext, Controller } from 'react-hook-form';
 
-import { ProductFormData } from '@/types';
+import { HomeFormData, ProductFormData } from '@/types';
 
-import { ImageView } from '.';
+import { ImageView } from './ImageView';
 
 const CoverImage = () => {
   const {
     control,
     formState: { errors },
+
     setError,
-  } = useFormContext<ProductFormData, ProductFormData>();
+  } = useFormContext<HomeFormData, HomeFormData>();
 
   const { t } = useTranslation();
 
-  const maxNumber = 10;
+  const maxNumber = 1;
 
   return (
-    <div className="custom-file-container " data-upload-id="myFirstImage">
+    <div className="custom-file-container max-w-xs" data-upload-id="myFirstImage">
       <div className="label-container">
         <label>{t('product.cover_image')}</label>
       </div>
@@ -28,67 +29,51 @@ const CoverImage = () => {
       <br />
 
       <Controller
-        name="images"
+        name="image"
         control={control}
-        render={({ field: { onChange, value } }) => {
-          return (
-            <ImageUploading
-              value={value}
-              onChange={(newImages) => {
-                const newValues = [...newImages];
-                onChange(newValues);
-                return;
-              }}
-              maxNumber={maxNumber}
-              multiple
-            >
-              {({ imageList, onImageUpload, onImageRemove }) => (
-                <>
-                  <div className="upload__image-wrapper">
-                    <button
-                      type="button"
-                      className={`custom-file-container__custom-file__custom-file-control ${errors.images && 'border-red-500'}`}
-                      onClick={onImageUpload}
-                    >
-                      Choose File...
-                    </button>
-                    {/* {errors.image && (
+        render={({ field: { onChange, value } }) => (
+          <ImageUploading
+            value={value}
+            onChange={(value) => (value.length ? onChange([{ ...value[0], key: '' }]) : onChange([]))}
+            maxNumber={maxNumber}
+            multiple
+          >
+            {({ imageList, onImageUpload, onImageRemove }) => (
+              <>
+                <div className="upload__image-wrapper">
+                  <button
+                    type="button"
+                    className={`custom-file-container__custom-file__custom-file-control ${errors.image && 'border-red-500'}`}
+                    onClick={onImageUpload}
+                  >
+                    Choose File...
+                  </button>
+                  {/* {errors.image && (
                     <span className="text-red-500">{t(errors.image?.message || (errors?.image?.[0]?.key?.message as string | ''))}</span>
                   )} */}
-                    <div className="flex flex-row flex-wrap w-full gap-5 justify-center">
-                      &nbsp;
-                      {(value || [])?.map((image: any, index: any) => {
-                        return (
-                          <div className="" key={index}>
-                            <ImageView
-                              key={index}
-                              imageData={{
-                                key: image.key,
-                                dataURL: value[index]?.dataURL || value[index],
-                              }}
-                              onImageRemove={() => {
-                                const deletedValue = value;
-                                deletedValue.splice(index, 1);
-                                onChange(deletedValue);
-                              }}
-                              onImageUpload={(key: string) => {
-                                image.key = key;
-                                onChange(imageList);
-                              }}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  &nbsp;
+                  {imageList.map((image, index) => (
+                    <ImageView
+                      key={index}
+                      imageData={value[index]}
+                      onImageRemove={() => onImageRemove(index)}
+                      onImageUpload={(key: string) => {
+                        image.key = key;
+                        onChange(imageList);
+                      }}
+                      //   removeImageKeyError={() => {
+                      //     setError(`printAreas.${index}.key`, { message: '' });
+                      //   }}
+                    />
+                  ))}
+                </div>
 
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {imageList.length === 0 ? <img src="/assets/images/file-preview.svg" className="max-w-md w-full m-auto" alt="" /> : ''}
-                </>
-              )}
-            </ImageUploading>
-          );
-        }}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {imageList.length === 0 ? <img src="/assets/images/file-preview.svg" className="max-w-md w-full m-auto" alt="" /> : ''}
+              </>
+            )}
+          </ImageUploading>
+        )}
       />
     </div>
   );

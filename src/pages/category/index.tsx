@@ -95,7 +95,7 @@ const Category = () => {
                 accessor: 'name',
                 title: t('name'),
                 sortable: true,
-                render: ({ category }) => <div>{category['en']}</div>,
+                render: ({ category }) => <div>{category && category['en']}</div>,
               },
 
               {

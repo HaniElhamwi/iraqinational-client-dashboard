@@ -13,26 +13,14 @@ function isNumberString(input: unknown) {
 }
 
 export const ProductFormSchema = object({
-  title: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
-  description: string('product.description_error', [minLength(3, 'product.description_required')]),
-  images: optional(any()),
-  price: string('products.price_error'),
-  quantity: optional(string()),
-  country: string(undefined, [minLength(3, 'country must have at least 3 characters')]),
-  city: string(undefined, [minLength(2, 'city must have at least 2 characters')]),
-  showPlace: boolean('this field is required'),
-
-  categoryId: required(
-    object({
-      id: number(),
-      title: string(),
-    }),
-  ),
-  userId: optional(number()),
-  updatedAt: optional(date()),
-  createdAt: optional(date()),
-  id: any(),
-  published: optional(boolean()),
+  enTitle: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
+  arTitle: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
+  enDescription: string(undefined, [toTrimmed(), minLength(3, 'product.description_required')]),
+  arDescription: string(undefined, [toTrimmed(), minLength(3, 'product.description_required')]),
+  category: any(),
+  image: any(),
+  id: optional(string()),
+  categoryId: optional(string()),
 
   //   slug: string(undefined, [minLength(3, 'product.slug_required')]),
   //   seoDescription: string(undefined, [minLength(3, 'product.seo_description_required')]),
