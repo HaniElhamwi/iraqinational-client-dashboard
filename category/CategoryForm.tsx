@@ -8,7 +8,7 @@ export const CategoryForm = () => {
         <div className="panel flex-1 px-0 py-6 ltr:xl:mr-6 rtl:xl:ml-6">
           <CategoryData />
 
-          <ImageData />
+          {/* <ImageData /> */}
         </div>
       </div>
     </>

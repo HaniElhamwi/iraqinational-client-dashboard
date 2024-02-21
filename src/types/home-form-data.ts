@@ -2,10 +2,9 @@ import { object, string, optional, minLength, toTrimmed, type Output, date, any,
 
 export const HomeFormSchema = object({
   enTitle: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
-  enDescription: string('product.description_error', [minLength(3, 'product.description_required')]),
+  enDescription: optional(string(undefined, [toTrimmed(), minLength(0, 'product.name_required')])),
   arTitle: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
-  arDescription: string('product.description_error', [minLength(3, 'product.description_required')]),
-  image: any(),
+  arDescription: optional(string(undefined, [toTrimmed(), minLength(0, 'product.name_required')])),
   enFirstOption: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
   enSecondOption: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
   enThirdOption: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
@@ -15,6 +14,7 @@ export const HomeFormSchema = object({
   arThirdOption: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
   arFourthOption: string(undefined, [toTrimmed(), minLength(3, 'product.name_required')]),
   id: optional(string()),
+  category: optional(string()),
 });
 
 export type HomeFormData = Output<typeof HomeFormSchema>;

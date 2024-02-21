@@ -6,9 +6,9 @@ export const paths = {
     edit: (id: string) => `/products/edit/${id}`,
   },
   home: {
-    index: '/home',
-    add: '/home/add',
-    edit: (id: string) => `/home/edit/${id}`,
+    index: '/home/add',
+    // add: '/home/add',
+    // edit: (id: string) => `/home/edit/${id}`,
   },
   users: {
     index: '/users',

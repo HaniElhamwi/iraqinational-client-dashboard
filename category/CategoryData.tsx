@@ -8,14 +8,14 @@ import { Input, TextArea } from '@/shared';
 import { HomeFormData, ProductFormData } from '@/types';
 import { useGetCategories } from '@/hooks';
 import { useState } from 'react';
+import { homeOptions } from '@/data';
 
-export const CategoryData = () => {
+export const CategoryData = ({ setCategory, category }: any) => {
   const {
     register,
     control,
     getValues,
     setValue,
-
     formState: { errors },
   } = useFormContext<HomeFormData, HomeFormData>();
   const [lan, setLan] = useState<'en' | 'ar'>('en');
@@ -24,8 +24,33 @@ export const CategoryData = () => {
 
   return (
     <div>
+      <div className="flex flex-col items-start mt-4 px-5 mb-5">
+        <div className="custom-select w-full">
+          <Controller
+            name="category"
+            control={control}
+            render={({ field: { name, value, onChange } }) => {
+              return (
+                <Select
+                  getOptionValue={(option): string => option.name as string}
+                  getOptionLabel={(option: any) => option.name}
+                  placeholder={t('users.role')}
+                  noOptionsMessage={() => t('no_options')}
+                  instanceId="category_select"
+                  defaultOptions={homeOptions}
+                  name={name}
+                  value={{ name: category }}
+                  onChange={(e) => {
+                    setCategory(e?.name as string);
+                    // setCategoryName(e.name);
+                  }}
+                />
+              );
+            }}
+          />
+        </div>
+      </div>
       <div className="flex flex-row justify-center">
-        {' '}
         <button
           type="button"
           className={`${lan == 'ar' ? 'bg-primary text-white' : ''} btn btn-outline-info ltr:rounded-r-none rtl:rounded-l-none`}

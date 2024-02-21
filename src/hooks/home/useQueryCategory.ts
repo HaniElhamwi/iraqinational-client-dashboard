@@ -49,6 +49,5 @@ const fetchCategory = async (id: string) => {
 };
 export const useGetCategory = (id: string) => {
   const { data, isLoading, isError } = useQuery(['categories', id], () => fetchCategory(id));
-
   return { data: data, isLoading, isError };
 };

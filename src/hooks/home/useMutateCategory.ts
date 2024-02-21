@@ -24,7 +24,6 @@ const createCategory = async (category: HomeFormData) => {
         en: category.enDescription,
         ar: category.arDescription,
       },
-      image: category.image,
       firstOption: {
         en: category.enFirstOption,
         ar: category.arFirstOption,
@@ -63,10 +62,10 @@ export const useCreateCategory = () => {
   };
 };
 
-const editCategory = async (category: HomeFormData) => {
+const editHome = async (category: HomeFormData, sectionName: string) => {
+  console.log(sectionName);
   try {
-    const washingtonRef = doc(db, 'home', category?.id || '12345');
-
+    const washingtonRef = doc(db, 'home', sectionName);
     await updateDoc(washingtonRef, {
       title: {
         en: category.enTitle,
@@ -76,20 +75,19 @@ const editCategory = async (category: HomeFormData) => {
         en: category.enDescription,
         ar: category.arDescription,
       },
-      image: category.image,
-      firstOption: {
+      firstoption: {
         en: category.enFirstOption,
         ar: category.arFirstOption,
       },
-      secondOption: {
+      secondoption: {
         en: category.enSecondOption,
         ar: category.arSecondOption,
       },
-      thirdOption: {
+      thirdoption: {
         en: category.enThirdOption,
         ar: category.arThirdOption,
       },
-      fourthOption: {
+      fourthoption: {
         en: category.enFourthOption,
         ar: category.arFourthOption,
       },
@@ -100,8 +98,8 @@ const editCategory = async (category: HomeFormData) => {
   }
 };
 
-export const useEditCategory = () => {
-  const { mutateAsync, isLoading, error } = useMutation((requestData: HomeFormData) => editCategory(requestData), {
+export const useEditHome = ({ homeName }: { homeName: string }) => {
+  const { mutateAsync, isLoading, error } = useMutation((requestData: HomeFormData) => editHome(requestData, homeName), {
     onSuccess: () => {
       //   router.push(paths.products.index);
     },

@@ -227,9 +227,7 @@ const Sidebar = () => {
                         <li>
                           <Link href={paths.home.index}>{t('list')}</Link>
                         </li>
-                        <li>
-                          <Link href={paths.home.add}>{t('add')}</Link>
-                        </li>
+                        <li>{/*    <Link href={paths.home.add}>{t('add')}</Link> */}</li>
                       </ul>
                     </AnimateHeight>
                   </li>
