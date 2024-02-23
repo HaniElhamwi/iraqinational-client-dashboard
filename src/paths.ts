@@ -19,6 +19,9 @@ export const paths = {
     edit: (id: string) => `/news/edit/${id}`,
     add: '/news/add',
   },
+  drinks: {
+    departments: '/drinks/departments',
+  },
   category: {
     index: '/category',
     add: '/category/add',

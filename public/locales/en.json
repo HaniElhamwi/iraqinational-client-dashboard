@@ -229,5 +229,9 @@
     "edit_news": "Edit News",
     "news_subject": "News Subject",
     "links": "News Links"
+  },
+  "drinks": {
+    "drinks": "Drinks",
+    "departments": "departments"
   }
 }
