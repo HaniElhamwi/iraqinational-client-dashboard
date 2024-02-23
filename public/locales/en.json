@@ -198,7 +198,8 @@
     "update_product": "Update Product",
     "quantity": "Quantity",
     "description": "Description",
-    "category": "category"
+    "category": "category",
+    "subTitle": "Sub Title"
   },
 
   "home": {
@@ -232,6 +233,7 @@
   },
   "drinks": {
     "drinks": "Drinks",
-    "departments": "departments"
+    "departments": "departments",
+    "certifications": "Certifications"
   }
 }

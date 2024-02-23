@@ -259,7 +259,12 @@ const Sidebar = () => {
                         <li>
                           <Link href={paths.drinks.departments}>{t('departments')}</Link>
                         </li>
-                        <li>{/*    <Link href={paths.home.add}>{t('add')}</Link> */}</li>
+                        <li>
+                          <Link href={paths.drinks.certifications}>{t('certifications')}</Link>
+                        </li>
+                        <li>
+                          <Link href={paths.drinks.about}>{t('About')}</Link>
+                        </li>
                       </ul>
                     </AnimateHeight>
                   </li>

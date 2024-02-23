@@ -37,7 +37,7 @@ const CoverImage = () => {
                 onChange(newValues);
                 return;
               }}
-              maxNumber={maxNumber}
+              maxNumber={30}
               multiple
             >
               {({ imageList, onImageUpload, onImageRemove }) => (

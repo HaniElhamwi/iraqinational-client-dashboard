@@ -11,7 +11,7 @@ import { useUploadImage } from '@/hooks';
 import { useRouter } from 'next/router';
 import { DepartmentFrom } from '@/components/drinks/departmentFrom';
 import { DepartmentsFormData, DepartmentsFormSchema } from '@/types/departments';
-import { useMutateDepartment } from '@/hooks/drinks';
+import { useMutateCertifications, useMutateDepartment } from '@/hooks/drinks';
 import { useGetDepartments } from '@/hooks/drinks/useQueryDrinks';
 
 const Departments = () => {
@@ -27,14 +27,14 @@ const Departments = () => {
   });
 
   useEffect(() => {
-    dispatch(setPageTitle('departments.departments'));
+    dispatch(setPageTitle('departments.certifications'));
   });
 
   const { t } = useTranslation();
   const router = useRouter();
 
-  const { createDepartment, createDepartmentError, createDepartmentLoading } = useMutateDepartment();
-  const { data, isError, isLoading } = useGetDepartments({ departmentName: 'departments' });
+  const { createCertifications, createCertificationsError, createCertificationsLoading } = useMutateCertifications();
+  const { data, isError, isLoading } = useGetDepartments({ departmentName: 'certifications' });
 
   const handleCreateProduct = async (data: DepartmentsFormData) => {
     const imagesData = [];
@@ -48,7 +48,7 @@ const Departments = () => {
           imagesData.push(file);
         }
       }
-      createDepartment({ images: imagesData });
+      createCertifications({ images: imagesData });
       setUploadLoading(false);
     } else {
       //   createProduct({ ...data });
@@ -75,11 +75,11 @@ const Departments = () => {
       <ul className="flex space-x-2 rtl:space-x-reverse">
         <li>
           <Link href={paths.products.index} className="text-primary hover:underline">
-            {t('drinks.departments')}
+            {t('drinks.certifications')}
           </Link>
         </li>
         <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-          <span>{t('drinks.departments')}</span>
+          <span>{t('drinks.certifications')}</span>
         </li>
       </ul>
 

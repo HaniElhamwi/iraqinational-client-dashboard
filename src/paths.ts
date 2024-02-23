@@ -21,6 +21,8 @@ export const paths = {
   },
   drinks: {
     departments: '/drinks/departments',
+    certifications: '/drinks/certifications',
+    about: '/drinks/about',
   },
   category: {
     index: '/category',
