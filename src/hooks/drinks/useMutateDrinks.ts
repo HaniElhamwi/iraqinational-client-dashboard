@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import { db } from '../../../firebase';
 import { DrinkAboutFormData } from '@/types/drinkAbout';
+import { DrinksHomeFormData } from '@/types/drinks-home';
 
 const createDepartments = async (images: DepartmentsFormData) => {
   try {
@@ -85,6 +86,30 @@ export const useMutateDrinksAbout = () => {
   });
   return {
     createAbout: mutateAsync,
+    createAboutLoading: isLoading,
+    createAboutError: error,
+  };
+};
+
+const editDrinksMain = async (data: DrinksHomeFormData) => {
+  try {
+    await setDoc(doc(db, 'drinks', 'main'), {
+      ...data,
+    });
+    toastBar({ message: 'About Edited successfully' });
+    return 'success';
+  } catch (err) {
+    console.error('update', err);
+  }
+};
+
+export const useMutateDrinksMain = () => {
+  const router = useRouter();
+  const { mutateAsync, isLoading, error } = useMutation((requestData: DrinksHomeFormData) => editDrinksMain(requestData), {
+    onSuccess: () => {},
+  });
+  return {
+    updateDrinksMain: mutateAsync,
     createAboutLoading: isLoading,
     createAboutError: error,
   };

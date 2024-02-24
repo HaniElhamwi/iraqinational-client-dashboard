@@ -51,3 +51,14 @@ export const useGetCategory = (id: string) => {
   const { data, isLoading, isError } = useQuery(['categories', id], () => fetchCategory(id));
   return { data: data, isLoading, isError };
 };
+
+const fetchSections = async (field: string, id: string) => {
+  const docRef = doc(db, field, id);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data();
+};
+export const useGetSections = (field: string, id: string) => {
+  const { data, isLoading, isError } = useQuery(['categories', id], () => fetchSections(field, id));
+  return { data: data, isLoading, isError };
+};

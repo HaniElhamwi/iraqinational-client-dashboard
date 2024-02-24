@@ -15,3 +15,26 @@ export const homeOptions = [
     name: 'eduction',
   },
 ];
+
+type categoryTypes = 'dinar' | 'hindirin' | 'nutritional' | 'rayan' | 'softdrinks' | 'steelbul';
+
+export const drinksMainOptions: { name: categoryTypes }[] = [
+  {
+    name: 'dinar',
+  },
+  {
+    name: 'hindirin',
+  },
+  {
+    name: 'nutritional',
+  },
+  {
+    name: 'rayan',
+  },
+  {
+    name: 'softdrinks',
+  },
+  {
+    name: 'steelbul',
+  },
+];

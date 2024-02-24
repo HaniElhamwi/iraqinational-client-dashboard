@@ -20,6 +20,7 @@ export const paths = {
     add: '/news/add',
   },
   drinks: {
+    main: '/drinks/main',
     departments: '/drinks/departments',
     certifications: '/drinks/certifications',
     about: '/drinks/about',
