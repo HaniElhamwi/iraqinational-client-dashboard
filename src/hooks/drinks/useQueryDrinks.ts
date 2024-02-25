@@ -9,7 +9,7 @@ const fetchDepartments = async (departmentName: string) => {
 };
 
 export const useGetDepartments = ({ departmentName }: { departmentName: string }) => {
-  const { data, isLoading, isError } = useQuery([], () => fetchDepartments(departmentName), {
+  const { data, isLoading, isError } = useQuery([departmentName], () => fetchDepartments(departmentName), {
     keepPreviousData: true,
   });
 

@@ -47,7 +47,7 @@ const AddProduct = () => {
       method.reset({
         arDescription: product?.description['ar'],
         arTitle: product?.title['ar'],
-        category: 'tttt',
+        category: 'ttttttt',
         categoryId: router?.query?.uid as string,
         enDescription: product?.description['en'],
         enTitle: product?.title['en'],
@@ -65,6 +65,7 @@ const AddProduct = () => {
   const { t } = useTranslation();
 
   const handleEditProduct = async (prodData: ProductFormData) => {
+    console.log('its updateing productss');
     setUploadLoading(true);
     const image: string = prodData.image[0].dataURL;
     if (prodData.image[0]?.file) {

@@ -26,6 +26,7 @@ const Products = () => {
     direction: 'ASC',
   });
   const { deleteProduct } = useDeleteProduct();
+  const [sortedData, setSorted] = useState([]);
 
   const { data, isLoading } = useGetProducts(search?.page, search.limit, search?.search, search.direction);
 
@@ -33,6 +34,37 @@ const Products = () => {
   useEffect(() => {
     dispatch(setPageTitle('Products'));
   });
+
+  const handleSortedData = () => {
+    if (data?.length) {
+      // sort about limit page
+      const start = (search.page - 1) * search.limit;
+      const end = start + search.limit;
+      const sorted = data.slice(start, end);
+      setSorted(sorted);
+    }
+  };
+
+  const handleProductsSearch = () => {
+    if (data?.length) {
+      const filtered = data.filter((item: any) => {
+        return item.title[lan].toLowerCase().includes(search.search.toLowerCase());
+      });
+      setSorted(filtered);
+    }
+  };
+
+  useEffect(() => {
+    if (data?.length) {
+      handleProductsSearch();
+    }
+  }, [search?.search]);
+
+  useEffect(() => {
+    if (data?.length) {
+      handleSortedData();
+    }
+  }, [data, search?.limit]);
 
   return (
     <div>
@@ -96,7 +128,7 @@ const Products = () => {
         <div className="datatables">
           <DataTable
             className="table-hover whitespace-nowrap"
-            records={data}
+            records={sortedData}
             columns={[
               {
                 accessor: 'title',

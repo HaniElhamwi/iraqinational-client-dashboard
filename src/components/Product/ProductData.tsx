@@ -8,8 +8,6 @@ import { ProductSearch, useUploadImage } from '@/hooks';
 import { useEffect, useState } from 'react';
 import { useGetCategories } from '@/hooks/variants';
 
-const nanoid = customAlphabet('1234567890', 12);
-
 export const ProductData = () => {
   const [lan, setLan] = useState('en');
   const [search, setSearch] = useState<ProductSearch>({
@@ -137,7 +135,7 @@ export const ProductData = () => {
                       );
                     }}
                   />
-                  {errors.category && <div className="text-red-500">{errors.category.message}</div>}
+                  {errors && <div className="text-red-500">{errors?.arDescription?.type}</div>}
                 </div>
               </div>
             </div>

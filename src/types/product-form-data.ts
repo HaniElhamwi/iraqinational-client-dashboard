@@ -19,7 +19,7 @@ export const ProductFormSchema = object({
   arDescription: string(undefined, [toTrimmed(), minLength(3, 'product.description_required')]),
   category: any(),
   image: any(),
-  id: optional(string()),
+  id: optional(any()),
   categoryId: optional(string()),
 
   //   slug: string(undefined, [minLength(3, 'product.slug_required')]),
