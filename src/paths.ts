@@ -29,6 +29,14 @@ export const paths = {
     index: '/category',
     add: '/category/add',
   },
+  transportation: {
+    index: '/transportation',
+    about: '/transportation/about',
+  },
+  grain: {
+    index: '/grain',
+    about: '/grain/about',
+  },
   401: '/401',
   403: '/403',
   404: '/404',

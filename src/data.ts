@@ -38,3 +38,17 @@ export const drinksMainOptions: { name: categoryTypes }[] = [
     name: 'steelbul',
   },
 ];
+
+type transportationOptions = 'first' | 'second' | 'third';
+
+export const transportationMainOptions: { name: transportationOptions }[] = [
+  {
+    name: 'first',
+  },
+  {
+    name: 'second',
+  },
+  {
+    name: 'third',
+  },
+];

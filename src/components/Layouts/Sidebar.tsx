@@ -272,6 +272,78 @@ const Sidebar = () => {
                     </AnimateHeight>
                   </li>
                 </ul>
+
+                {/* transportation */}
+                <ul>
+                  <li className="menu nav-item">
+                    <button
+                      type="button"
+                      className={`${currentMenu === 'transportation' ? 'active' : ''} nav-link group w-full`}
+                      onClick={() => toggleMenu('transportation')}
+                    >
+                      <div className="flex items-center">
+                        <BoxIcon />
+                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
+                          {t('transportation')}
+                        </span>
+                      </div>
+
+                      <div className={currentMenu === 'transportation' ? '!rotate-90' : 'rtl:rotate-180'}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    <AnimateHeight duration={300} height={currentMenu === 'transportation' ? 'auto' : 0}>
+                      <ul className="sub-menu text-gray-500">
+                        <li>
+                          <Link href={paths.transportation.index}>{t('transportation')}</Link>
+                        </li>
+                        <li>
+                          <Link href={paths.transportation.about}>{t('About')}</Link>
+                        </li>
+                      </ul>
+                    </AnimateHeight>
+                  </li>
+                </ul>
+                {/*  transportation */}
+
+                {/* Grain */}
+                <ul>
+                  <li className="menu nav-item">
+                    <button
+                      type="button"
+                      className={`${currentMenu === 'grain' ? 'active' : ''} nav-link group w-full`}
+                      onClick={() => toggleMenu('grain')}
+                    >
+                      <div className="flex items-center">
+                        <BoxIcon />
+                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
+                          {t('Grain')}
+                        </span>
+                      </div>
+
+                      <div className={currentMenu === 'grain' ? '!rotate-90' : 'rtl:rotate-180'}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    <AnimateHeight duration={300} height={currentMenu === 'grain' ? 'auto' : 0}>
+                      <ul className="sub-menu text-gray-500">
+                        <li>
+                          <Link href={paths.grain.index}>{t('Grain')}</Link>
+                        </li>
+                        <li>
+                          <Link href={paths.grain.about}>{t('About')}</Link>
+                        </li>
+                      </ul>
+                    </AnimateHeight>
+                  </li>
+                </ul>
+                {/*  Grain */}
                 <ul>
                   {/*  */}
 
