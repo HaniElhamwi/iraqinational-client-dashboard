@@ -20,7 +20,6 @@ export const useLogin = () => {
         }),
       });
       const res = await response.json();
-
       return res;
     } catch (err) {
       console.error('update', err);

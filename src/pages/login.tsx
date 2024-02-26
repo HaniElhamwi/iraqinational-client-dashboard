@@ -72,7 +72,7 @@ const Login = () => {
           err: false,
         });
         setLoading(false);
-        router.push('/dashboard');
+        router.push('/');
       })
       .catch((error) => {
         const errorCode = error.code;

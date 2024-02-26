@@ -81,16 +81,16 @@ const Category = () => {
             className="table-hover whitespace-nowrap"
             records={data}
             columns={[
-              {
-                accessor: 'category',
-                title: t('image'),
-                sortable: false,
-                render: ({ image }: any) => (
-                  <div>
-                    <img className="h-24 w-24 rounded-md object-cover ltr:mr-2 rtl:ml-2" src={image} alt="" width={96} height={96} />
-                  </div>
-                ),
-              },
+              //   {
+              //     accessor: 'category',
+              //     title: t('image'),
+              //     sortable: false,
+              //     render: ({ image }: any) => (
+              //       <div>
+              //         <img className="h-24 w-24 rounded-md object-cover ltr:mr-2 rtl:ml-2" src={image} alt="" width={96} height={96} />
+              //       </div>
+              //     ),
+              //   },
               {
                 accessor: 'name',
                 title: t('name'),
