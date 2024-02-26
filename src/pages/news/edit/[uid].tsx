@@ -50,6 +50,7 @@ const EditProduct = () => {
     }
   };
 
+  //   @ts-ignore
   const onSubmit = method.handleSubmit((e) => handleUpdateCategory(e));
 
   const checkKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
