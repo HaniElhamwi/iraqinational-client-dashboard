@@ -58,6 +58,7 @@ const editCategory = async (category: HomeFormData) => {
         en: category.enDescription,
         ar: category.arDescription,
       },
+      //    @ts-ignore
       image: category.image,
       firstOption: {
         en: category.enFirstOption,

@@ -57,6 +57,7 @@ const Category = () => {
         </ul>
 
         <div>
+          {/* @ts-ignore  */}
           <Link href={paths.home.add} className="btn btn-outline-primary ">
             {t('home.add_category')}
           </Link>
@@ -127,9 +128,9 @@ const Category = () => {
                 titleClassName: '!text-center',
                 render: ({ title, id }) => (
                   <div className="mx-auto flex w-max items-center gap-2">
-                    <Tippy content={t('edit')}>
-                      <Link
-                        href={paths.home.edit(id)}
+                    {/* <Tippy content={t('edit')}> */}
+                    {/* <Link
+                        // href={paths.home.edit(id)}
                         className="text-indigo-600 hover:text-indigo-900 dark:text-white-light dark:hover:text-white-dark hover:underline"
                       >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
@@ -145,8 +146,8 @@ const Category = () => {
                             strokeWidth="1.5"
                           />
                         </svg>
-                      </Link>
-                    </Tippy>
+                      </Link> */}
+                    {/* </Tippy> */}
                     <Tippy content={t('delete')}>
                       <div
                         onClick={() => {

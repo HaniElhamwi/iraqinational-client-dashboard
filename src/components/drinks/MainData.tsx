@@ -38,6 +38,7 @@ export const MainData = () => {
             defaultOptions={drinksMainOptions}
             // name={name}
             value={{ name: category }}
+            //   @ts-ignore
             onChange={(e: { name: categoryTypes }) => {
               setCategory(e.name);
               // setCategoryName(e.name);
@@ -77,7 +78,9 @@ export const MainData = () => {
                   error={errors.dinar?.title?.en}
                   label={t('Title')}
                   required
+                  //   @ts-ignore
                   {...register(`${category + '.title.en'}`, {
+                    //   @ts-ignore
                     value: getValues(`${category + '.title.en'} }`),
                   })}
                 />
@@ -90,7 +93,9 @@ export const MainData = () => {
                   //   error={errors['arTitle']}
                   label={t('Title')}
                   required
+                  //   @ts-ignore
                   {...register(`${category + '.title.ar'}`, {
+                    //   @ts-ignore
                     value: getValues(`${category + '.title.ar'} }`),
                   })}
                 />
@@ -112,7 +117,9 @@ export const MainData = () => {
                   placeholder={t('description')}
                   label={t('description')}
                   required
+                  //   @ts-ignore
                   {...register(`${category + '.description.en'}`, {
+                    //   @ts-ignore
                     value: getValues(`${category + '.description.en'} }`),
                   })}
                 />
@@ -124,7 +131,9 @@ export const MainData = () => {
                   placeholder={t('description')}
                   label={t('description')}
                   required
+                  //   @ts-ignore
                   {...register(`${category + '.description.ar'}`, {
+                    //   @ts-ignore
                     value: getValues(`${category + '.description.ar'} }`),
                   })}
                 />

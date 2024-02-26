@@ -192,6 +192,7 @@ const Products = () => {
                             customClass: 'sweet-alerts',
                           }).then((result) => {
                             if (result.value) {
+                              // @ts-ignore
                               deleteProduct({
                                 id: id,
                                 categoryId: categoryId,

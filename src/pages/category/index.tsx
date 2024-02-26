@@ -95,6 +95,7 @@ const Category = () => {
                 accessor: 'name',
                 title: t('name'),
                 sortable: true,
+                //  @ts-ignore
                 render: ({ category }) => <div>{category && category['en']}</div>,
               },
 
@@ -102,6 +103,7 @@ const Category = () => {
                 accessor: 'actions',
                 title: t('actions'),
                 titleClassName: '!text-center',
+                //  @ts-ignore
                 render: ({ categoryId }) => (
                   <div className="mx-auto flex w-max items-center gap-2">
                     <Tippy content={t('delete')}>

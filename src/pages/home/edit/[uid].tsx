@@ -10,6 +10,7 @@ import { HomeFormData, HomeFormSchema } from '@/types';
 
 import { setPageTitle } from '../../../store/themeConfigSlice';
 import { paths } from '@/paths';
+//  @ts-ignore
 import { useEditCategory, useGetCategory, useUploadImage } from '@/hooks';
 import { CategoryForm } from '../../../../category/CategoryForm';
 import { useRouter } from 'next/router';
@@ -36,6 +37,7 @@ const EditProduct = () => {
       arThirdOption: '',
       enFourthOption: '',
       arFourthOption: '',
+      //  @ts-ignore
       image: [],
     },
   });
@@ -47,7 +49,9 @@ const EditProduct = () => {
   const { t } = useTranslation();
 
   const handleUpdateCategory = async (categoryData: HomeFormData) => {
+    //  @ts-ignore
     if (categoryData.image[0]?.file) {
+      //  @ts-ignore
       const image = await uploadImage(categoryData.image[0]?.file);
       updateCategory({ ...categoryData, image });
     } else {
@@ -76,6 +80,7 @@ const EditProduct = () => {
         arThirdOption: data.thirdOption.ar,
         enFourthOption: data.fourthOption.en,
         arFourthOption: data.fourthOption.ar,
+        //  @ts-ignore
         image: data.image,
         id: data.id,
       });

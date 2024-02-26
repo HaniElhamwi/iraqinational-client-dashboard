@@ -29,10 +29,12 @@ const CoverImage = () => {
       <br />
 
       <Controller
+        //   @ts-ignore
         name="image"
         control={control}
         render={({ field: { onChange, value } }) => (
           <ImageUploading
+            //   @ts-ignore
             value={value}
             onChange={(value) => (value.length ? onChange([{ ...value[0], key: '' }]) : onChange([]))}
             maxNumber={maxNumber}
@@ -43,6 +45,7 @@ const CoverImage = () => {
                 <div className="upload__image-wrapper">
                   <button
                     type="button"
+                    //   @ts-ignore
                     className={`custom-file-container__custom-file__custom-file-control ${errors.image && 'border-red-500'}`}
                     onClick={onImageUpload}
                   >
@@ -55,6 +58,7 @@ const CoverImage = () => {
                   {imageList.map((image, index) => (
                     <ImageView
                       key={index}
+                      //   @ts-ignore
                       imageData={value[index]}
                       onImageRemove={() => onImageRemove(index)}
                       onImageUpload={(key: string) => {

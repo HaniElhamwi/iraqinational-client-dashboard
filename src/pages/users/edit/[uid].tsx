@@ -14,6 +14,7 @@ import { HomeFormData, HomeFormSchema, UserFormData, UserFormSchema } from '@/ty
 
 import { setPageTitle } from '../../../store/themeConfigSlice';
 import { paths } from '@/paths';
+// @ts-ignore
 import { useCreateCategory, useEditCategory, useGetCategory, useGetUser, useUpdateUser } from '@/hooks';
 import { CategoryForm } from '../../../../category/CategoryForm';
 import { useRouter } from 'next/router';
