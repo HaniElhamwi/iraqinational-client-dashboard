@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { HomeFormData, ProductFormData } from '@/types';
 import { toastBar } from '@/utils/comp/toastbar';
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { catchError, getApiHeader } from '@/utils';
 import { db } from '../../../firebase';
 import { useRouter } from 'next/router';
@@ -96,19 +96,12 @@ export const useEditCategory = () => {
 };
 
 //  create delete category funciton
-const deleteCategory = async (id: number) => {
+const deleteCategory = async (categoryId: string) => {
   const headers = getApiHeader();
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/category/' + id, {
-      method: 'DELETE',
-      credentials: 'include',
-      headers,
-    });
-
-    catchError(response);
+    await deleteDoc(doc(db, 'products', categoryId));
     toastBar({ message: 'Category Deleted Successfully' });
-    const res = await response.json();
-    return res;
+    return 'success';
   } catch (err) {
     console.error('update', err);
   }
@@ -117,9 +110,8 @@ const deleteCategory = async (id: number) => {
 export const useDeleteCategory = () => {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isLoading, error } = useMutation((id: number) => deleteCategory(id), {
+  const { mutateAsync, isLoading, error } = useMutation((categoryId: string) => deleteCategory(categoryId), {
     onSuccess: () => {
-      //   router.push(paths.products.index);
       queryClient.invalidateQueries('categories/getAll');
     },
   });

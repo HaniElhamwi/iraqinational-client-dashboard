@@ -171,6 +171,79 @@ const Sidebar = () => {
                   <li className="menu nav-item">
                     <button
                       type="button"
+                      className={`${currentMenu === 'home' ? 'active' : ''} nav-link group w-full`}
+                      onClick={() => toggleMenu('home')}
+                    >
+                      <div className="flex items-center">
+                        <BoxIcon />
+                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
+                          {t('home.home')}
+                        </span>
+                      </div>
+
+                      <div className={currentMenu === 'home' ? '!rotate-90' : 'rtl:rotate-180'}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    <AnimateHeight duration={300} height={currentMenu === 'home' ? 'auto' : 0}>
+                      <ul className="sub-menu text-gray-500">
+                        <li>
+                          <Link href={paths.home.index}>{t('list')}</Link>
+                        </li>
+                        <li>{/*    <Link href={paths.home.add}>{t('add')}</Link> */}</li>
+                      </ul>
+                    </AnimateHeight>
+                  </li>
+                </ul>
+                <ul>
+                  <li className="menu nav-item">
+                    <button
+                      type="button"
+                      className={`${currentMenu === 'category' ? 'active' : ''} nav-link group w-full`}
+                      onClick={() => toggleMenu('category')}
+                    >
+                      <div className="flex items-center">
+                        <BoxIcon />
+                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
+                          {t('category.category')}
+                        </span>
+                      </div>
+
+                      <div className={currentMenu === 'category' ? '!rotate-90' : 'rtl:rotate-180'}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+
+                    <AnimateHeight duration={300} height={currentMenu === 'category' ? 'auto' : 0}>
+                      <ul className="sub-menu text-gray-500">
+                        <li>
+                          <Link href={paths.category.index}>{t('list')}</Link>
+                        </li>
+                        <li>
+                          <Link href={paths.category.add}>{t('add')}</Link>
+                        </li>
+                      </ul>
+                    </AnimateHeight>
+
+                    <AnimateHeight duration={300} height={currentMenu === 'drinks' ? 'auto' : 0}>
+                      <ul className="sub-menu text-gray-500">
+                        <li>
+                          <Link href={paths.category.index}>{t('department')}</Link>
+                        </li>
+                        <li></li>
+                      </ul>
+                    </AnimateHeight>
+                  </li>
+                </ul>
+                <ul>
+                  <li className="menu nav-item">
+                    <button
+                      type="button"
                       className={`${currentMenu === 'product' ? 'active' : ''} nav-link group w-full`}
                       onClick={() => toggleMenu('product')}
                     >
@@ -196,38 +269,6 @@ const Sidebar = () => {
                         <li>
                           <Link href={paths.products.add}>{t('add')}</Link>
                         </li>
-                      </ul>
-                    </AnimateHeight>
-                  </li>
-                </ul>
-
-                <ul>
-                  <li className="menu nav-item">
-                    <button
-                      type="button"
-                      className={`${currentMenu === 'home' ? 'active' : ''} nav-link group w-full`}
-                      onClick={() => toggleMenu('home')}
-                    >
-                      <div className="flex items-center">
-                        <BoxIcon />
-                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
-                          {t('home.home')}
-                        </span>
-                      </div>
-
-                      <div className={currentMenu === 'home' ? '!rotate-90' : 'rtl:rotate-180'}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-
-                    <AnimateHeight duration={300} height={currentMenu === 'home' ? 'auto' : 0}>
-                      <ul className="sub-menu text-gray-500">
-                        <li>
-                          <Link href={paths.home.index}>{t('list')}</Link>
-                        </li>
-                        <li>{/*    <Link href={paths.home.add}>{t('add')}</Link> */}</li>
                       </ul>
                     </AnimateHeight>
                   </li>
@@ -347,118 +388,9 @@ const Sidebar = () => {
                 <ul>
                   {/*  */}
 
-                  <ul>
-                    <li className="menu nav-item">
-                      <button
-                        type="button"
-                        className={`${currentMenu === 'category' ? 'active' : ''} nav-link group w-full`}
-                        onClick={() => toggleMenu('category')}
-                      >
-                        <div className="flex items-center">
-                          <BoxIcon />
-                          <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
-                            {t('category.category')}
-                          </span>
-                        </div>
-
-                        <div className={currentMenu === 'category' ? '!rotate-90' : 'rtl:rotate-180'}>
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M9 5L15 12L9 19"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
-                      </button>
-
-                      <AnimateHeight duration={300} height={currentMenu === 'category' ? 'auto' : 0}>
-                        <ul className="sub-menu text-gray-500">
-                          <li>
-                            <Link href={paths.category.index}>{t('list')}</Link>
-                          </li>
-                          <li>
-                            <Link href={paths.category.add}>{t('add')}</Link>
-                          </li>
-                        </ul>
-                      </AnimateHeight>
-
-                      <AnimateHeight duration={300} height={currentMenu === 'drinks' ? 'auto' : 0}>
-                        <ul className="sub-menu text-gray-500">
-                          <li>
-                            <Link href={paths.category.index}>{t('department')}</Link>
-                          </li>
-                          <li></li>
-                        </ul>
-                      </AnimateHeight>
-                    </li>
-                  </ul>
-
                   {/*  */}
-                  <li className="menu nav-item">
-                    <button
-                      type="button"
-                      className={`${currentMenu === 'users' ? 'active' : ''} nav-link group w-full`}
-                      onClick={() => toggleMenu('users')}
-                    >
-                      <div className="flex items-center">
-                        <BoxIcon />
-                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
-                          {t('users.users')}
-                        </span>
-                      </div>
-
-                      <div className={currentMenu === 'users' ? '!rotate-90' : 'rtl:rotate-180'}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-
-                    <AnimateHeight duration={300} height={currentMenu === 'users' ? 'auto' : 0}>
-                      <ul className="sub-menu text-gray-500">
-                        <li>
-                          <Link href={paths.users.index}>{t('list')}</Link>
-                        </li>
-                      </ul>
-                    </AnimateHeight>
-                  </li>
                 </ul>
-                <ul>
-                  <li className="menu nav-item">
-                    <button
-                      type="button"
-                      className={`${currentMenu === 'news' ? 'active' : ''} nav-link group w-full`}
-                      onClick={() => toggleMenu('news')}
-                    >
-                      <div className="flex items-center">
-                        <BoxIcon />
-                        <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
-                          {t('news.news')}
-                        </span>
-                      </div>
-
-                      <div className={currentMenu === 'news' ? '!rotate-90' : 'rtl:rotate-180'}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-
-                    <AnimateHeight duration={300} height={currentMenu === 'news' ? 'auto' : 0}>
-                      <ul className="sub-menu text-gray-500">
-                        <li>
-                          <Link href={paths.news.index}>{t('list')}</Link>
-                        </li>
-                        <li>
-                          <Link href={paths.news.add}>{t('add')}</Link>
-                        </li>
-                      </ul>
-                    </AnimateHeight>
-                  </li>
-                </ul>
+                <ul></ul>
               </li>
             </ul>
           </PerfectScrollbar>

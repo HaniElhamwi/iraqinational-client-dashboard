@@ -192,16 +192,9 @@ const Products = () => {
                             customClass: 'sweet-alerts',
                           }).then((result) => {
                             if (result.value) {
-                              deleteProduct(id).then((res) => {
-                                console.log(res);
-                                if (res?.message === 'deleted') {
-                                  Swal.fire({
-                                    title: 'Deleted!',
-                                    text: 'Your file has been deleted.',
-                                    icon: 'success',
-                                    customClass: 'sweet-alerts',
-                                  });
-                                }
+                              deleteProduct({
+                                id: id,
+                                categoryId: categoryId,
                               });
                             }
                           });

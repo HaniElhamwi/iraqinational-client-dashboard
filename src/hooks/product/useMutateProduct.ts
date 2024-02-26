@@ -44,8 +44,6 @@ export const useCreateProduct = () => {
 
 const updateProduct = async (product: ProductFormData) => {
   try {
-    console.log(product);
-
     const docRef = doc(db, 'products', product.categoryId as string);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -95,22 +93,20 @@ export const useUpdateProduct = () => {
   };
 };
 
-const deleteProduct = async (prodId: string) => {
-  const headers = getApiHeader();
-
+const deleteProduct = async (product: ProductFormData) => {
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/products/' + prodId, {
-      method: 'DELETE',
-      credentials: 'include',
-      headers,
-      body: JSON.stringify({}),
-    });
-
-    catchError(response);
-
-    // toastBar({ message: 'product added successfully' });
-    const res = await response.json();
-    return res;
+    const docRef = doc(db, 'products', product.categoryId as string);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const productsData = docSnap.data().products.filter((prod: any) => prod.id !== product.id);
+      const washingtonRef = doc(db, 'products', product.categoryId as string);
+      await updateDoc(washingtonRef, {
+        products: productsData,
+      });
+      toastBar({ message: 'product deleted successfully' });
+    } else {
+      toastBar({ message: 'No such document!' });
+    }
   } catch (err) {
     console.error('update', err);
   }
@@ -118,9 +114,8 @@ const deleteProduct = async (prodId: string) => {
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading, error } = useMutation((requestData: string) => deleteProduct(requestData), {
+  const { mutateAsync, isLoading, error } = useMutation((requestData: ProductFormData) => deleteProduct(requestData), {
     onSuccess: () => {
-      //   router.push(paths.products.index);
       queryClient.invalidateQueries('products/getAll');
     },
   });

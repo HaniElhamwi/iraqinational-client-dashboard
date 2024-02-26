@@ -102,11 +102,12 @@ const Category = () => {
                 accessor: 'actions',
                 title: t('actions'),
                 titleClassName: '!text-center',
-                render: ({ id }) => (
+                render: ({ categoryId }) => (
                   <div className="mx-auto flex w-max items-center gap-2">
                     <Tippy content={t('delete')}>
                       <div
                         onClick={() => {
+                          console.log(categoryId);
                           Swal.fire({
                             icon: 'warning',
                             title: 'Are you sure?',
@@ -118,7 +119,7 @@ const Category = () => {
                             showLoaderOnConfirm: true,
                           }).then((result) => {
                             if (result.value) {
-                              deleteCategory(id);
+                              deleteCategory(categoryId);
                             }
                           });
                         }}
